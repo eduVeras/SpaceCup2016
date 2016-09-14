@@ -13,6 +13,6 @@ import SpaceCup.Entity.Entities.Aluno;
  */
 public interface IAlunoRepository {
    
-    Aluno ValidarLogin(Aluno aluno);
+    Aluno  ValidarLogin(Aluno aluno);
     
 }
