@@ -1,14 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package SpaceCup.Entity.Interfaces;
 
-/**
- *
- * @author Shiftinc-Dev02
- */
+import SpaceCup.Entity.Entities.Lancamento;
+import java.util.ArrayList;
+
 public interface ILancamentoRepository {
-    
+
+    ArrayList<Lancamento> BuscarTodos();
+
+    Lancamento BuscarPorId(int id);
+
+    Lancamento BuscarPorId(Lancamento lancamento);
+
+    void InsereLancamento(Lancamento lancamento);
+
+    void AtualizaLancamento(Lancamento lancamento);
+
+    void DeletaLancamento(Lancamento lancamento);
+
 }

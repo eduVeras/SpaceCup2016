@@ -1,14 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SpaceCup.Entity.Interfaces;
 
-/**
- *
- * @author Shiftinc-Dev02
- */
+import SpaceCup.Entity.Entities.Projeto;
+import java.util.ArrayList;
+
 public interface IProjetoRepository {
-    
+
+    ArrayList<Projeto> BuscarTodos();
+
+    Projeto BuscarPorId(int id);
+
+    Projeto BuscarPorId(Projeto projeto);
+
+    void InsereProjeto(Projeto projeto);
+
+    void AtualizaProjeto(Projeto projeto);
+
+    void DeletaProjeto(Projeto projeto);
 }

@@ -1,14 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package SpaceCup.Entity.Interfaces;
 
-/**
- *
- * @author Shiftinc-Dev02
- */
+import SpaceCup.Entity.Entities.Turma;
+import java.util.ArrayList;
+
+
 public interface ITurmaRepository {
-    
+
+    ArrayList<Turma> BuscarTodos();
+
+    Turma BuscarPorId(int id);
+
+    Turma BuscarPorId(Turma turma);
+
+    void InsereTurma(Turma turma);
+
+    void AtualizaTurma(Turma turma);
+
+    void DeletaTurma(Turma turma);
 }
