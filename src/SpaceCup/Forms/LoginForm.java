@@ -109,11 +109,11 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
-        Aluno aluno = new Aluno(txtRm.getText(), txtPassword.getText());
+        Aluno aluno = new Aluno(0, txtRm.getText(), "", null, null, txtPassword.getName());
         AlunoRepository alunoRepository = new AlunoRepository();
-        Aluno alunoPass = alunoRepository.ValidarLogin(aluno);
+        Aluno isValidAluno = alunoRepository.ValidarLogin(aluno);
         
-        //if(alunoPass != null)
+        //if(isValidAluno != null)
         //Aqui precisa esconder e o mostrar o menu com as outras informaçoes
             
         

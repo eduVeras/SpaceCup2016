@@ -10,26 +10,67 @@ package SpaceCup.Entity.Entities;
  * @author Shiftinc-Dev02
  */
 public class Aluno {
-    
-    private String RM;
+
+    private int IdAluno;
+    private String RmAluno;
+    private String NomeAluno;
+    Turma Turma;
+    Grupo Grupo;
     private String Password;
 
     public Aluno() {
+
+        this.Turma = new Turma();
+        this.Grupo = new Grupo();
     }
 
-    
-    public Aluno(String RM, String Password) {
-        this.RM = RM;
+    public Aluno(int IdAluno, String RmAluno, String NomeAluno, Turma turma, Grupo grupo, String Password) {
+        this.IdAluno = IdAluno;
+        this.RmAluno = RmAluno;
+        this.NomeAluno = NomeAluno;
+        this.Turma = turma;
+        this.Grupo = grupo;
         this.Password = Password;
     }
 
-    
-    public String getRM() {
-        return RM;
+    public Turma getTurma() {
+        return Turma;
     }
 
-    public void setRM(String RM) {
-        this.RM = RM;
+    public void setTurma(Turma turma) {
+        this.Turma = turma;
+    }
+
+    public Grupo getGrupo() {
+        return Grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.Grupo = grupo;
+    }
+
+    public int getIdAluno() {
+        return IdAluno;
+    }
+
+    public void setIdAluno(int IdAluno) {
+        this.IdAluno = IdAluno;
+    }
+
+    public String getRmAluno() {
+        return RmAluno;
+    }
+
+    public void setRmAluno(String RmAluno) {
+        this.RmAluno = RmAluno;
+    }
+
+    public String getNomeAluno() {
+        return NomeAluno;
+    }
+
+    public void setNomeAluno(String NomeAluno) {
+        this.NomeAluno = NomeAluno;
     }
 
     public String getPassword() {
@@ -39,6 +80,5 @@ public class Aluno {
     public void setPassword(String Password) {
         this.Password = Password;
     }
-    
-    
+
 }

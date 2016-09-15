@@ -1,16 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package SpaceCup.Business.Repositories;
-
+import SpaceCup.Entity.Entities.Grupo;
 import SpaceCup.Entity.Interfaces.IGrupoRepository;
+import java.util.ArrayList;
 
-/**
- *
- * @author Shiftinc-Dev02
- */
 public class GrupoRepository implements IGrupoRepository {
+
+    @Override
+    public ArrayList<Grupo> BuscarTodos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Grupo BuscarPorId(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Grupo BuscarPorId(Grupo aluno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void InsereGrupo(Grupo aluno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void AtualizaGrupo(Grupo aluno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void DeletaGrupo(Grupo aluno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -5,10 +5,20 @@
  */
 package SpaceCup.Entity.Interfaces;
 
+import SpaceCup.Entity.Entities.Grupo;
+import java.util.ArrayList;
+
 /**
  *
  * @author Shiftinc-Dev02
  */
 public interface IGrupoRepository {
+    
+    ArrayList<Grupo> BuscarTodos();
+    Grupo BuscarPorId(int id);
+    Grupo BuscarPorId(Grupo aluno);
+    void InsereGrupo(Grupo aluno);
+    void AtualizaGrupo(Grupo aluno);
+    void DeletaGrupo(Grupo aluno);
     
 }
