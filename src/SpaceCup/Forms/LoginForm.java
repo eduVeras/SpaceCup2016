@@ -109,7 +109,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         
-        Aluno aluno = new Aluno(0, txtRm.getText(), "", null, null, txtPassword.getName());
+        Aluno aluno = new Aluno(0, txtRm.getText(), "", null, null, txtPassword.getName(),true);
         AlunoRepository alunoRepository = new AlunoRepository();
         Aluno isValidAluno = alunoRepository.ValidarLogin(aluno);
         

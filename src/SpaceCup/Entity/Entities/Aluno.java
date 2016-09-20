@@ -17,6 +17,7 @@ public class Aluno {
     Turma Turma;
     Grupo Grupo;
     private String Password;
+    private boolean Ativo;
 
     public Aluno() {
 
@@ -24,13 +25,14 @@ public class Aluno {
         this.Grupo = new Grupo();
     }
 
-    public Aluno(int IdAluno, String RmAluno, String NomeAluno, Turma turma, Grupo grupo, String Password) {
+    public Aluno(int IdAluno, String RmAluno, String NomeAluno, Turma turma, Grupo grupo, String Password,boolean Ativo) {
         this.IdAluno = IdAluno;
         this.RmAluno = RmAluno;
         this.NomeAluno = NomeAluno;
         this.Turma = turma;
         this.Grupo = grupo;
         this.Password = Password;
+        this.Ativo = Ativo;
     }
 
     public Turma getTurma() {
@@ -81,4 +83,11 @@ public class Aluno {
         this.Password = Password;
     }
 
+     public boolean getAtivo() {
+        return Ativo;
+    }
+
+    public void setAtivo(boolean Ativo) {
+        this.Ativo = Ativo;
+    }
 }
