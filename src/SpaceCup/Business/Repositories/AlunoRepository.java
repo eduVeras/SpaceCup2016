@@ -1,15 +1,15 @@
 package SpaceCup.Business.Repositories;
 
 import SpaceCup.Business.Connection;
+import SpaceCup.Business.Filter.Message;
 import SpaceCup.Entity.Entities.Aluno;
 import SpaceCup.Entity.Interfaces.IAlunoRepository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
-public class AlunoRepository implements IAlunoRepository {
+public class AlunoRepository extends Message implements IAlunoRepository {
 
     private static java.sql.Connection conexao;
 
@@ -45,7 +45,7 @@ public class AlunoRepository implements IAlunoRepository {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao validar aluno.\nErro: " + e);
+            ErrorMessage("Erro ao validar aluno.\nErro: " + e);
         }
         return retorno;
     }
@@ -74,7 +74,7 @@ public class AlunoRepository implements IAlunoRepository {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar alunos.\nErro: " + e);
+            ErrorMessage("Erro ao Buscar alunos.\nErro: " + e);
         }
         return retorno;
 
@@ -107,7 +107,7 @@ public class AlunoRepository implements IAlunoRepository {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar alunos.\nErro: " + e);
+            ErrorMessage("Erro ao Buscar alunos.\nErro: " + e);
         }
         return retorno;
         
@@ -140,7 +140,7 @@ public class AlunoRepository implements IAlunoRepository {
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Buscar alunos.\nErro: " + e);
+            ErrorMessage("Erro ao Buscar alunos.\nErro: " + e);
         }
         return retorno;
     }
@@ -167,7 +167,7 @@ public class AlunoRepository implements IAlunoRepository {
 
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Inserir aluno.\nErro: " + e);
+            ErrorMessage("Erro ao Inserir aluno.\nErro: " + e);
         }
     }
 
@@ -200,7 +200,7 @@ public class AlunoRepository implements IAlunoRepository {
 
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Atualizar aluno.\nErro: " + e);
+            ErrorMessage("Erro ao Atualizar aluno.\nErro: " + e);
         }
     }
 
@@ -225,7 +225,7 @@ public class AlunoRepository implements IAlunoRepository {
 
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Remover aluno.\nErro: " + e);
+            ErrorMessage("Erro ao Remover aluno.\nErro: " + e);
         }
     }
 

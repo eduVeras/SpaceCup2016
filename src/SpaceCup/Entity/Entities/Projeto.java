@@ -7,29 +7,27 @@ package SpaceCup.Entity.Entities;
 
 import java.sql.Date;
 
-/**
- *
- * @author Shiftinc-Dev02
- */
 public class Projeto {
 
     private int IdProjeto;
     private String NomeProjeto;
-    private Grupo IdGrupo;
     private Date DataInicio;
     private Date DataEntrega;
     private String DetalhesProjeto;
 
-    public Projeto(int IdProjeto, String NomeProjeto, Grupo IdGrupo, Date DataInicio, Date DataEntrega, String DetalhesProjeto) {
+    public Projeto() {
+    }
+
+    public Projeto(int IdProjeto) {
+        this.IdProjeto = IdProjeto;
+    }
+
+    public Projeto(int IdProjeto, String NomeProjeto, Date DataInicio, Date DataEntrega, String DetalhesProjeto) {
         this.IdProjeto = IdProjeto;
         this.NomeProjeto = NomeProjeto;
-        this.IdGrupo = IdGrupo;
         this.DataInicio = DataInicio;
         this.DataEntrega = DataEntrega;
         this.DetalhesProjeto = DetalhesProjeto;
-    }
-
-    public Projeto() {
     }
 
     public int getIdProjeto() {
@@ -46,14 +44,6 @@ public class Projeto {
 
     public void setNomeProjeto(String NomeProjeto) {
         this.NomeProjeto = NomeProjeto;
-    }
-
-    public Grupo getIdGrupo() {
-        return IdGrupo;
-    }
-
-    public void setIdGrupo(Grupo IdGrupo) {
-        this.IdGrupo = IdGrupo;
     }
 
     public Date getDataInicio() {

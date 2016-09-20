@@ -12,16 +12,16 @@ package SpaceCup.Entity.Entities;
 public class Grupo {
 
     private int IdGrupo;
-    private String NomeProjeto;
+    private String NomeGrupo;
     private Projeto Projeto;
 
     public Grupo(){
         
     }
     
-    public Grupo(int IdGrupo, String NomeProjeto, Projeto Projeto) {
+    public Grupo(int IdGrupo, String NomeGrupo, Projeto Projeto) {
         this.IdGrupo = IdGrupo;
-        this.NomeProjeto = NomeProjeto;
+        this.NomeGrupo = NomeGrupo;
         this.Projeto = Projeto;
     }
     
@@ -33,12 +33,12 @@ public class Grupo {
         this.IdGrupo = IdGrupo;
     }
 
-    public String getNomeProjeto() {
-        return NomeProjeto;
+    public String getNomeGrupo() {
+        return NomeGrupo;
     }
 
-    public void setNomeProjeto(String NomeProjeto) {
-        this.NomeProjeto = NomeProjeto;
+    public void setNomeGrupo(String NomeGrupo) {
+        this.NomeGrupo = NomeGrupo;
     }
 
     public Projeto getProjeto() {
