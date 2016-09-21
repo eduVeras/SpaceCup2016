@@ -1,53 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package SpaceCup.Entity.Entities;
-
-/**
- *
- * @author Shiftinc-Dev02
- */
 public class Grupo {
-
     private int IdGrupo;
     private String NomeGrupo;
-    private Projeto Projeto;
-
-    public Grupo(){
-        
+    private int IdProjeto;
+    private boolean Ativo;
+    public boolean getAtivo() {
+        return Ativo;
     }
-    
-    public Grupo(int IdGrupo, String NomeGrupo, Projeto Projeto) {
+    public void setAtivo(boolean Ativo) {
+        this.Ativo = Ativo;
+    }
+    public Grupo() {
+
+    }
+    public Grupo(int IdGrupo, String NomeGrupo, int IdProjeto) {
         this.IdGrupo = IdGrupo;
         this.NomeGrupo = NomeGrupo;
-        this.Projeto = Projeto;
+        this.IdProjeto = IdProjeto;
     }
-    
     public int getIdGrupo() {
         return IdGrupo;
     }
-
     public void setIdGrupo(int IdGrupo) {
         this.IdGrupo = IdGrupo;
     }
-
     public String getNomeGrupo() {
         return NomeGrupo;
     }
-
     public void setNomeGrupo(String NomeGrupo) {
         this.NomeGrupo = NomeGrupo;
     }
-
-    public Projeto getProjeto() {
-        return Projeto;
+    public int getIdProjeto() {
+        return IdProjeto;
     }
-
-    public void setProjeto(Projeto Projeto) {
-        this.Projeto = Projeto;
+    public void setIdProjeto(int IdProjeto) {
+        this.IdProjeto = IdProjeto;
     }
-
-    
 }

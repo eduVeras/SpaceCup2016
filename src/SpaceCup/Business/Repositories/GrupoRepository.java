@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 public class GrupoRepository extends Message implements IGrupoRepository {
-private static java.sql.Connection conexao;
+    private static java.sql.Connection conexao;
     @Override
     public ArrayList<Grupo> BuscarTodos() {
-         String sql = "SELECT * "
+        String sql = "SELECT * "
                 + "FROM GRUPO ";
         conexao = Connection.getConnection();
         ResultSet rs = null;
@@ -27,22 +27,20 @@ private static java.sql.Connection conexao;
                 int IdGrupo = rs.getInt(1);
                 String NomeGrupo = rs.getString(2);
                 int IdProjeto = rs.getInt(1);
-                Projeto proj=  new Projeto(IdProjeto);
-                retorno.add(new Grupo(IdGrupo,NomeGrupo,proj));
+                retorno.add(new Grupo(IdGrupo, NomeGrupo, IdProjeto));
             }
 
         } catch (SQLException e) {
-            ErrorMessage( "Erro ao Buscar grupos.\nErro: " + e);
+            ErrorMessage("Erro ao Buscar grupos.\n" + e);
         }
         return retorno;
     }
-
     @Override
     public Grupo BuscarPorId(int id) {
         String sql = "SELECT * "
                 + "FROM GRUPO "
                 + "WHERE ID_GRUPO = ?";
-        conexao = Connection.getConnection(); 
+        conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
         Grupo retorno = new Grupo();
@@ -56,34 +54,102 @@ private static java.sql.Connection conexao;
                 int IdGrupo = rs.getInt(1);
                 String NomeGrupo = rs.getString(2);
                 int IdProjeto = rs.getInt(1);
-                Projeto proj=  new Projeto(IdProjeto);
-                retorno = new Grupo(IdGrupo,NomeGrupo,proj);
+                retorno = new Grupo(IdGrupo, NomeGrupo, IdProjeto);
             }
 
         } catch (SQLException e) {
-            ErrorMessage( "Erro ao Buscar grupo.\nErro: " + e);
+            ErrorMessage("Erro ao Buscar grupo.\n" + e);
         }
         return retorno;
     }
-
     @Override
-    public Grupo BuscarPorId(Grupo aluno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public Grupo BuscarPorId(Grupo grupo) {
+        String sql = "SELECT * "
+                + "FROM GRUPO "
+                + "WHERE ID_GRUPO = ?";
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        Grupo retorno = new Grupo();
+        try {
 
-    @Override
-    public void InsereGrupo(Grupo aluno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            ps = conexao.prepareStatement(sql);
+            ps.setInt(1, grupo.getIdGrupo());
+            rs = ps.executeQuery();
 
-    @Override
-    public void AtualizaGrupo(Grupo aluno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+            while (rs.next()) {
+                int IdGrupo = rs.getInt(1);
+                String NomeGrupo = rs.getString(2);
+                int IdProjeto = rs.getInt(1);
+                retorno = new Grupo(IdGrupo, NomeGrupo, IdProjeto);
+            }
 
-    @Override
-    public void DeletaGrupo(Grupo aluno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Buscar grupo.\n" + e);
+        }
+        return retorno;
     }
-    
+    @Override
+    public void InsereGrupo(Grupo grupo) {
+        String sql = "INSERT INTO GRUPO (Nome_Grupo,ID_Projeto,Ativo_Grupo)"
+                + "VALUES(?,?,?,?)";
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = conexao.prepareStatement(sql);
+            ps.setString(1, grupo.getNomeGrupo());
+            ps.setInt(2, grupo.getIdProjeto());
+            ps.setBoolean(3, grupo.getAtivo());
+            ps.execute();
+
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Inserir grupo.\n" + e);
+        }
+    }
+    @Override
+    public void AtualizaGrupo(Grupo grupo) {
+        String sql = "UPDATE GRUPO "
+                + "SET Nome_Grupo = ? , "
+                + "ID_Projeto = ? , "
+                + "Ativo_Grupo = ?, ";
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = conexao.prepareStatement(sql);
+            ps.setString(1, grupo.getNomeGrupo());
+            ps.setInt(2, grupo.getIdProjeto());
+            ps.setBoolean(3, grupo.getAtivo());
+            ps.execute();
+
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Atualizar grupo.\n" + e);
+        }
+    }
+    @Override
+    public void DeletaGrupo(Grupo grupo) {
+
+        String sql = "UPDATE ALUNO "
+                + "Ativo_Aluno=?"
+                + "WHERE ID_Aluno = ?";
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        try {
+
+            ps = conexao.prepareStatement(sql);
+            ps.setBoolean(1, grupo.getAtivo());
+            ps.setInt(2, grupo.getIdGrupo());
+
+            ps.execute();
+
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Remover aluno.\n" + e);
+        }
+    }
 }
