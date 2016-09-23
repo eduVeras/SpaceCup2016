@@ -24,7 +24,6 @@ public class Connection {
     public static java.sql.Connection getConnection() {
 
         if (conexao == null) {
-
             try {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
                 conexao = DriverManager.getConnection(url, usuario, senha);
@@ -33,9 +32,7 @@ public class Connection {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Falha ao estabelecer conexão com o banco de dados.\nErro: " + e);
             }
-
         }
-
         return conexao;
 
     }
