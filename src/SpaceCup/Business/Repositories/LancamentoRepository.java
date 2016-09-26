@@ -16,33 +16,27 @@ public class LancamentoRepository implements ILancamentoRepository {
     private static java.sql.Connection conexao;
 
     @Override
-    public ArrayList<Lancamento> BuscarTodos() {
+    public void Insert(Lancamento obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Lancamento BuscarPorId(int id) {
+    public Lancamento GetById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Lancamento BuscarPorId(Lancamento lancamento) {
+    public void Update(Lancamento obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void InsereLancamento(Lancamento lancamento) {
+    public void Delete(Lancamento obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void AtualizaLancamento(Lancamento lancamento) {
+    public ArrayList<Lancamento> GetAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void DeletaLancamento(Lancamento lancamento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

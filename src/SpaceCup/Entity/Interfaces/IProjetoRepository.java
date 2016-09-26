@@ -1,19 +1,9 @@
 package SpaceCup.Entity.Interfaces;
 
+import SpaceCup.Entity.Interfaces.Base.IRepositoryBase;
 import SpaceCup.Entity.Entities.Projeto;
 import java.util.ArrayList;
 
-public interface IProjetoRepository {
+public interface IProjetoRepository extends IRepositoryBase<Projeto,Integer> {
 
-    ArrayList<Projeto> BuscarTodos();
-
-    Projeto BuscarPorId(int id);
-
-    Projeto BuscarPorId(Projeto projeto);
-
-    void InsereProjeto(Projeto projeto);
-
-    void AtualizaProjeto(Projeto projeto);
-
-    void DeletaProjeto(Projeto projeto);
 }

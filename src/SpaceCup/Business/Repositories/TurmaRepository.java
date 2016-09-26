@@ -13,25 +13,9 @@ import SpaceCup.Entity.Entities.Aluno;
 public class TurmaRepository extends Message implements ITurmaRepository {
 
     private static java.sql.Connection conexao;
-
+    
     @Override
-    public ArrayList<Turma> BuscarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turma BuscarPorId(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Turma BuscarPorId(Turma turma) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void InsereTurma(Turma turma) {
-
+    public void Insert(Turma obj) {
         String sql = "INSERT INTO Turma (NomeCurso,DataIncio)"
                 + "VALUES(?,?)";
         conexao = Connection.getConnection();
@@ -40,19 +24,22 @@ public class TurmaRepository extends Message implements ITurmaRepository {
 
         try {
             ps = conexao.prepareStatement(sql);
-            ps.setString(1, turma.getNomeCurso());
-            ps.setDate(2, (java.sql.Date) turma.getDataIncio());
+            ps.setString(1, obj.getNomeCurso());
+            ps.setDate(2, (java.sql.Date) obj.getDataIncio());
             ps.execute();
 
         } catch (SQLException e) {
-            ErrorMessage("Erro ao Inserir aluno.\n" + e);
+            ErrorMessage("Erro ao Inserir turma.\n" + e);
         }
-
     }
 
     @Override
-    public void AtualizaTurma(Turma turma) {
+    public Turma GetById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    @Override
+    public void Update(Turma obj) {
         String sql = "UPDATE Turma "
                 + "SET NomeCurso = ?,"
                 + "DataIncio = ?,"
@@ -63,21 +50,25 @@ public class TurmaRepository extends Message implements ITurmaRepository {
         Aluno retorno = new Aluno();
 
         try {
-            java.sql.Date date = (java.sql.Date) turma.getDataIncio();
+            java.sql.Date date = (java.sql.Date) obj.getDataIncio();
             ps = conexao.prepareStatement(sql);
-            ps.setString(1, turma.getNomeCurso());
+            ps.setString(1, obj.getNomeCurso());
             ps.setDate(2, date);
-            ps.setInt(3, turma.getIdTurma());
+            ps.setInt(3, obj.getIdTurma());
             ps.executeUpdate();
 
         } catch (SQLException e) {
             ErrorMessage("Erro ao Atualizar Turma.\n" + e);
         }
-
     }
 
     @Override
-    public void DeletaTurma(Turma turma) {
+    public void Delete(Turma obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Turma> GetAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

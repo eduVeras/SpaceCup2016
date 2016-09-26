@@ -9,33 +9,30 @@ public class ProjetoRepository implements IProjetoRepository {
     private static java.sql.Connection conexao;
 
     @Override
-    public ArrayList<Projeto> BuscarTodos() {
+    public void Insert(Projeto obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Projeto BuscarPorId(int id) {
+    public Projeto GetById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Projeto BuscarPorId(Projeto projeto) {
+    public void Update(Projeto obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void InsereProjeto(Projeto projeto) {
+    public void Delete(Projeto obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void AtualizaProjeto(Projeto projeto) {
+    public ArrayList<Projeto> GetAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void DeletaProjeto(Projeto projeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
 }
