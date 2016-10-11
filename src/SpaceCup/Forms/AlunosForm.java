@@ -235,10 +235,10 @@ public class AlunosForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Senha do aluno obrigatoria");
         return;
         }
-        Turma turma = new Turma(WIDTH, NomeCurso, DataIncio);
+        //Turma turma = new Turma(WIDTH, NomeCurso, DataIncio);
         Grupo grupo = new Grupo(WIDTH, NomeAluno, WIDTH);
         int IdAluno = 0;
-         Aluno aluno = new Aluno(IdAluno, RmAluno, NomeAluno, turma, Grupo, Password, true);
+        // Aluno aluno = new Aluno(IdAluno, RmAluno, NomeAluno, turma, Grupo, Password, true);
     }
         catch(Exception e){
            JOptionPane.showMessageDialog(null, e);

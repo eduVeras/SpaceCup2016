@@ -27,7 +27,7 @@ public interface IRepositoryBase<TEntity, Type extends Serializable> {
      * @param id
      * @return 
      */
-    TEntity GetById(int id);
+        TEntity GetById(int id);
  
     /** Atualiza no banco as alterações feita no objeto
      * @param transientObject 
@@ -37,7 +37,7 @@ public interface IRepositoryBase<TEntity, Type extends Serializable> {
     /** Remove o objeto da base
      * @param persistentObject 
      */
-    void Delete(TEntity obj);  
+        void Delete(TEntity obj);  
     
     /** Retorna uma lista de objetos da base
      */
