@@ -5,6 +5,7 @@
  */
 package SpaceCup.Entity.Entities;
 
+import SpaceCup.Business.Filter.Message;
 import java.util.Date;
 
 /**
@@ -48,6 +49,14 @@ public class Turma {
 
     public void setDataIncio(Date DataIncio) {
         this.DataIncio = DataIncio;
+    }
+    
+    public void IsValid(){
+      Message error =  new Message();
+      
+        if (NomeCurso.equalsIgnoreCase("")) {
+            error.ErrorMessage("Nome Curso é obrigatorio");
+        }
     }
 
 }

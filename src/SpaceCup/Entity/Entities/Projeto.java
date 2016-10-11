@@ -1,4 +1,5 @@
 package SpaceCup.Entity.Entities;
+import SpaceCup.Business.Filter.Message;
 import java.sql.Date;
 public class Projeto {
     private int IdProjeto;
@@ -55,5 +56,13 @@ public class Projeto {
     }
     public void setGrupo(Grupo Grupo) {
         this.Grupo = Grupo;
+    }
+    
+    public void IsValid(){
+      Message error =  new Message();
+      
+        if (NomeProjeto.equalsIgnoreCase("")) {
+            error.ErrorMessage("Nome Projeto é obrigatorio");
+        }
     }
 }

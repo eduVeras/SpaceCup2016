@@ -1,4 +1,7 @@
 package SpaceCup.Entity.Entities;
+
+import SpaceCup.Business.Filter.Message;
+
 public class Grupo {
     private int IdGrupo;
     private String NomeGrupo;
@@ -35,5 +38,14 @@ public class Grupo {
     }
     public void setIdProjeto(int IdProjeto) {
         this.IdProjeto = IdProjeto;
+    }
+    
+    public void IsValid(){
+        //Isto é um exemplo de como validar na entidade direto
+      Message error =  new Message();
+      
+        if (NomeGrupo.equalsIgnoreCase("")) {
+            error.ErrorMessage("Nome Grupo é obrigatorio");
+        }
     }
 }

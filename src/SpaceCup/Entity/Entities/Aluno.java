@@ -5,6 +5,8 @@
  */
 package SpaceCup.Entity.Entities;
 
+import SpaceCup.Business.Filter.Message;
+
 /**
  *
  * @author Shiftinc-Dev02
@@ -83,11 +85,19 @@ public class Aluno {
         this.Password = Password;
     }
 
-     public boolean getAtivo() {
+    public boolean getAtivo() {
         return Ativo;
     }
 
     public void setAtivo(boolean Ativo) {
         this.Ativo = Ativo;
+    }
+    
+    public void IsValid(){
+      Message error =  new Message();
+      
+        if (RmAluno.equalsIgnoreCase("")) {
+            error.ErrorMessage("Rm do aluno é obrigatorio");
+        }
     }
 }

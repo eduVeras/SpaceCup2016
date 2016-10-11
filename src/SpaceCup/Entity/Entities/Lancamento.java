@@ -5,6 +5,7 @@
  */
 package SpaceCup.Entity.Entities;
 
+import SpaceCup.Business.Filter.Message;
 import java.util.Date;
 
 /**
@@ -199,5 +200,7 @@ public class Lancamento {
     public void setProjeto(Projeto Projeto) {
         this.Projeto = Projeto;
     }
+    
+     
 
 }
