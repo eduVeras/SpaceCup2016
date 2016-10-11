@@ -96,8 +96,13 @@ public class Aluno {
     public void IsValid(){
       Message error =  new Message();
       
-        if (RmAluno.equalsIgnoreCase("")) {
-            error.ErrorMessage("Rm do aluno é obrigatorio");
-        }
+        if (RmAluno.isEmpty()) 
+            error.ErrorMessage("Aluno - Rm não foi preenchido");
+        
+        if(this.NomeAluno.isEmpty())
+            error.ErrorMessage("Aluno - Nome não foi preenchido");
+        
+        if(this.Password.isEmpty())
+            error.ErrorMessage("Aluno - Senha não foi preenchida");
     }
 }

@@ -61,8 +61,15 @@ public class Projeto {
     public void IsValid(){
       Message error =  new Message();
       
-        if (NomeProjeto.equalsIgnoreCase("")) {
+        if (this.NomeProjeto.equalsIgnoreCase("")) {
             error.ErrorMessage("Nome Projeto é obrigatorio");
         }
+        
+        if(this.DataEntrega.before(DataInicio))
+            error.ErrorMessage("Projeto - Data de entrega invalida.");
+        
+        if(this.DetalhesProjeto.isEmpty())
+            error.ErrorMessage("Projeto - Não foi informado os detalhes do projeto");
+        
     }
 }

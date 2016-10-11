@@ -54,8 +54,8 @@ public class Turma {
     public void IsValid(){
       Message error =  new Message();
       
-        if (NomeCurso.equalsIgnoreCase("")) {
-            error.ErrorMessage("Nome Curso é obrigatorio");
+        if (this.NomeCurso.isEmpty()) {
+            error.ErrorMessage("Turma - nome do curso não informado");
         }
     }
 

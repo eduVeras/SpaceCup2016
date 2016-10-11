@@ -33,6 +33,8 @@ public class Lancamento {
     private Double Duracaovoo;
     private Projeto Projeto;
 
+    
+
     public Lancamento() {
     }
 
@@ -201,6 +203,49 @@ public class Lancamento {
         this.Projeto = Projeto;
     }
     
-     
+    public void IsValid() {
+        Message error = new Message();
 
+        if (this.DistanciaLancamento.isNaN()) {
+            error.ErrorMessage("Lançamento - Distancia do lançamento inválida.");
+        }
+
+        if (this.Angulolancamento.isNaN()) {
+            error.ErrorMessage("Lançamento - Lançamento inválida.");
+        }
+
+        if (this.VelocidadeVento.isNaN()) {
+            error.ErrorMessage("Lançamento - Velocidade do lançamento inválida.");
+        }
+        if (this.PesoFoquete.isNaN()) {
+            error.ErrorMessage("Lançamento - Peso do Foquete inválida.");
+        }
+        if (this.TempoPropulsao.isNaN()) {
+            error.ErrorMessage("Lançamento - Tempo de propulsão do lançamento inválida.");
+        }
+        if (this.VelocidadeMaxima.isNaN()) {
+            error.ErrorMessage("Lançamento - Velocidade Maxima do lançamento inválida.");
+        }
+        if (this.PicoAceleracao.isNaN()) {
+            error.ErrorMessage("Lançamento - Pico aceleração do lançamento inválida.");
+        }
+        if (this.AceleracaoMedia.isNaN()) {
+            error.ErrorMessage("Lançamento - Aceleracao media do lançamento inválida.");
+        }
+        if (this.TempoApogeuDescida.isNaN()) {
+            error.ErrorMessage("Lançamento - Tempo Apogeu Descida do lançamento inválida.");
+        }
+        if (this.TempoEjecao.isNaN()) {
+            error.ErrorMessage("Lançamento - Tempo ejeção do lançamento inválida.");
+        }
+        if (this.AltitudeEjecao.isNaN()) {
+            error.ErrorMessage("Lançamento - Altitude ejção do lançamento inválida.");
+        }
+        if (this.TaxaDescida.isNaN()) {
+            error.ErrorMessage("Lançamento - Taxa de descida inválida.");
+        }
+        if (this.Duracaovoo.isNaN()) {
+            error.ErrorMessage("Lançamento - Duraçã do voo inválida.");
+        }
+    }
 }

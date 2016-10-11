@@ -44,8 +44,7 @@ public class Grupo {
         //Isto é um exemplo de como validar na entidade direto
       Message error =  new Message();
       
-        if (NomeGrupo.equalsIgnoreCase("")) {
-            error.ErrorMessage("Nome Grupo é obrigatorio");
-        }
+        if (this.NomeGrupo.isEmpty()) 
+            error.ErrorMessage("Grupo - Nome Grupo não foi preenchido.");
     }
 }
