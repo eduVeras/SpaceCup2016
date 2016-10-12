@@ -5,16 +5,16 @@
  */
 package SpaceCup.Forms;
 
-import SpaceCup.Entity.Entities.Projeto;
-
 /**
  *
  * @author Bruno
  */
-public class GrupoForm extends javax.swing.JFrame {
+public class TurmaForm extends javax.swing.JFrame {
 
-    
-    public GrupoForm() {
+    /**
+     * Creates new form TurmaForm
+     */
+    public TurmaForm() {
         initComponents();
     }
 
@@ -29,81 +29,70 @@ public class GrupoForm extends javax.swing.JFrame {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
-        txtnomegrupo = new javax.swing.JTextField();
-        cbprojeto = new javax.swing.JComboBox<>();
+        txtnomecurso = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        cbdatainicio = new com.toedter.calendar.JDateChooser();
         btnsalvar = new javax.swing.JButton();
         btneditar = new javax.swing.JButton();
-        btnsair = new javax.swing.JButton();
         btnexcluir = new javax.swing.JButton();
+        btnsair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jInternalFrame1.setTitle("Controle de Grupos");
+        jInternalFrame1.setTitle("Controle de Turmas");
         jInternalFrame1.setVisible(true);
 
-        jLabel1.setText("Projeto:");
+        jLabel1.setText("Nome do Curso:");
 
-        cbprojeto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbprojeto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbprojetoActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Grupo:");
+        jLabel2.setText("Data de Incio:");
 
         btnsalvar.setText("Salvar");
 
         btneditar.setText("Editar");
 
-        btnsair.setText("Sair");
-
         btnexcluir.setText("Excluir");
-        btnexcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnexcluirActionPerformed(evt);
-            }
-        });
+
+        btnsair.setText("Sair");
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtnomegrupo, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbprojeto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                            .addComponent(btnsalvar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btneditar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnexcluir)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnsair))))
+                .addContainerGap()
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(txtnomecurso, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(btnsalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btneditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnexcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnsair, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtnomegrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbprojeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtnomecurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsalvar)
                     .addComponent(btneditar)
-                    .addComponent(btnsair)
-                    .addComponent(btnexcluir))
-                .addGap(0, 5, Short.MAX_VALUE))
+                    .addComponent(btnexcluir)
+                    .addComponent(btnsair))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,17 +108,6 @@ public class GrupoForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cbprojetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbprojetoActionPerformed
-        this.cbprojeto.removeAllItems();
-        //Aqui precisamos de um array com todos os projetos
-        
-        
-    }//GEN-LAST:event_cbprojetoActionPerformed
-
-    private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnexcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,20 +126,20 @@ public class GrupoForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GrupoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GrupoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GrupoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GrupoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TurmaForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GrupoForm().setVisible(true);
+                new TurmaForm().setVisible(true);
             }
         });
     }
@@ -171,10 +149,10 @@ public class GrupoForm extends javax.swing.JFrame {
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnsair;
     private javax.swing.JButton btnsalvar;
-    private javax.swing.JComboBox<String> cbprojeto;
+    private com.toedter.calendar.JDateChooser cbdatainicio;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtnomegrupo;
+    private javax.swing.JTextField txtnomecurso;
     // End of variables declaration//GEN-END:variables
 }
