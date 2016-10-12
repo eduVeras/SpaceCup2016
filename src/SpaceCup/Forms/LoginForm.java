@@ -5,7 +5,7 @@
  */
 package SpaceCup.Forms;
 
-
+import SpaceCup.Business.Filter.Message;
 import SpaceCup.Business.Repositories.AlunoRepository;
 import SpaceCup.Entity.Entities.Aluno;
 
@@ -56,8 +56,18 @@ public class LoginForm extends javax.swing.JFrame {
         jLabel4.setText("Senha:");
 
         btnconfirmar.setText("Confirmar");
+        btnconfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnconfirmarActionPerformed(evt);
+            }
+        });
 
-        btncancelar.setText("Cancelar");
+        btncancelar.setText("Sair");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -110,6 +120,35 @@ public class LoginForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
+        AlunoRepository alunoRepository = new AlunoRepository();
+        String passText = new String(txtsenha.getPassword());
+        Message msg = new Message();
+
+        if (txtRm.getText().isEmpty() || passText.isEmpty()) {
+            msg.ErrorMessage("Login/senha não inseridos");
+        } else {
+            Aluno aluno = new Aluno(0, txtRm.getText(), "", null, null, passText, true);
+            
+            Aluno retorno = alunoRepository.ValidarLogin(aluno);
+            if(retorno == null)
+                msg.ErrorMessage("Usuario ou senha incorretos");
+            else{
+                this.hide();
+                AlunosForm alunoform = new AlunosForm();
+                alunoform.show();
+            }
+        }
+
+
+    }//GEN-LAST:event_btnconfirmarActionPerformed
+
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+        // TODO add your handling code here:
+        
+        System.exit(0);
+    }//GEN-LAST:event_btncancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -136,7 +175,7 @@ public class LoginForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
- 
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

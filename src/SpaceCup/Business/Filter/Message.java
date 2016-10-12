@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
 public class Message implements IMessage{
     @Override
     public void ErrorMessage(String message) {
-       JOptionPane.showMessageDialog(null, "Error : " + message);   
+       JOptionPane.showMessageDialog(null, message);   
     }
 
     @Override
     public void SucessMessage(String message) {
-       JOptionPane.showMessageDialog(null, "Success : " + message);  
+       JOptionPane.showMessageDialog(null, message);  
     }    
 }
