@@ -185,7 +185,7 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
                 retorno = new Lancamento();
                 retorno.setIdLancamento(rs.getInt("IdLancamento"));
                 retorno.setDataLancamento(rs.getDate("DataLancamento"));
-                retorno.setGrupo(new Grupo(rs.getInt("Grupo")));
+                retorno.setGrupo(new GrupoRepository().GetById(rs.getInt("Grupo")));
                 retorno.setDistanciaLancamento(rs.getDouble("DistanciaLancamento"));
                 retorno.setAngulolancamento(rs.getDouble("AnguloLancamento"));
                 retorno.setVelocidadeVento(rs.getDouble("VelocidadeVento"));
@@ -199,7 +199,7 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
                 retorno.setAltitudeEjecao(rs.getDouble("AltitudeEjecao"));
                 retorno.setTaxaDescida(rs.getDouble("TaxaDescida"));
                 retorno.setDuracaovoo(rs.getDouble("DuracaoVoo"));
-                retorno.setProjeto(new Projeto(rs.getInt("Projeto_IdProjeto")));
+                retorno.setProjeto(new ProjetoRepository().GetById(rs.getInt("Projeto_IdProjeto")));
                 lc.add(retorno);
             }
 
@@ -207,5 +207,24 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
             ErrorMessage("Erro ao Buscar grupo.\n" + e);
         }
         return lc;
+    }
+     public ResultSet GetTable() {
+        String sql = "SELECT * "
+                + "FROM LANCAMENTO ;";
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        ArrayList<Lancamento> lc = new ArrayList<Lancamento>();
+        Lancamento retorno;
+        try {
+
+            ps = conexao.prepareStatement(sql);
+            rs = ps.executeQuery();
+         
+
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Buscar grupo.\n" + e);
+        }
+        return rs;
     }
 }

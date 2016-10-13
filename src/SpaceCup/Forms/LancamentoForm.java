@@ -6,9 +6,14 @@
 package SpaceCup.Forms;
 
 import SpaceCup.Business.Filter.Message;
-import SpaceCup.Business.Repositories.LancamentoRepository;
+import SpaceCup.Business.Repositories.*;
+import SpaceCup.Business.Utils;
 import SpaceCup.Entity.Entities.*;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JTable;
 
 /**
  *
@@ -17,9 +22,13 @@ import java.sql.Date;
 public class LancamentoForm extends javax.swing.JFrame {
 
     private LancamentoRepository repository = new LancamentoRepository();
+    private GrupoRepository gRepository = new GrupoRepository();
+    private ProjetoRepository pRepository = new ProjetoRepository();
+    private Message m = new Message();
 
     public LancamentoForm() {
         initComponents();
+        PreencherCombos();
     }
 
     @SuppressWarnings("unchecked")
@@ -61,7 +70,7 @@ public class LancamentoForm extends javax.swing.JFrame {
         btnpesquisar = new javax.swing.JButton();
         btnsair = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableLancamento = new javax.swing.JTable();
         txtAceleracaoMedia = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -79,11 +88,6 @@ public class LancamentoForm extends javax.swing.JFrame {
         jLabel2.setText("Grupo:");
 
         cbgrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbgrupo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbgrupoActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Projeto:");
 
@@ -99,12 +103,6 @@ public class LancamentoForm extends javax.swing.JFrame {
 
         jLabel9.setText("Altitude Maxima:");
 
-        txtaltitudemaxima.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtaltitudemaximaActionPerformed(evt);
-            }
-        });
-
         jLabel10.setText("Velocidade Maxima:");
 
         jLabel11.setText("Tempo de Propulsao:");
@@ -113,21 +111,9 @@ public class LancamentoForm extends javax.swing.JFrame {
 
         jLabel13.setText("Tempo de Ejeção:");
 
-        txtvelocidademaxima.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtvelocidademaximaActionPerformed(evt);
-            }
-        });
-
         jLabel14.setText("Duracao de voo:");
 
         jLabel15.setText("Taxa de Descida: ");
-
-        txttaxadescida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txttaxadescidaActionPerformed(evt);
-            }
-        });
 
         btnsalvar.setText("Salvar");
         btnsalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +125,11 @@ public class LancamentoForm extends javax.swing.JFrame {
         btneditar.setText("Editar");
 
         btnexcluir.setText("Excluir");
+        btnexcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexcluirActionPerformed(evt);
+            }
+        });
 
         btnpesquisar.setText("Pesquisar");
         btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +140,7 @@ public class LancamentoForm extends javax.swing.JFrame {
 
         btnsair.setText("Sair");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableLancamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -160,31 +151,14 @@ public class LancamentoForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        txtAceleracaoMedia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAceleracaoMediaActionPerformed(evt);
-            }
-        });
+        tableLancamento.setName("tableLancamentos"); // NOI18N
+        jScrollPane1.setViewportView(tableLancamento);
 
         jLabel16.setText("Aceleração Média: ");
 
         jLabel17.setText("Altitude Ejeção:");
 
-        txtAltitudeEjecao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAltitudeEjecaoActionPerformed(evt);
-            }
-        });
-
         jLabel18.setText("Pico Aceleração: ");
-
-        txtPicoAceleracao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPicoAceleracaoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -329,13 +303,14 @@ public class LancamentoForm extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(txtAceleracaoMedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAltitudeEjecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18)
-                        .addComponent(txtPicoAceleracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addComponent(txtPicoAceleracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtAltitudeEjecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsalvar)
                     .addComponent(btneditar)
@@ -344,7 +319,7 @@ public class LancamentoForm extends javax.swing.JFrame {
                     .addComponent(btnsair))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -362,34 +337,26 @@ public class LancamentoForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void txtvelocidademaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtvelocidademaximaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtvelocidademaximaActionPerformed
-
-    private void txtaltitudemaximaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtaltitudemaximaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtaltitudemaximaActionPerformed
-
-    private void txttaxadescidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttaxadescidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txttaxadescidaActionPerformed
 
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
         SalvarLancamento();
     }//GEN-LAST:event_btnsalvarActionPerformed
     private void SalvarLancamento() {
+        int IdGrupo = Integer.parseInt(String.valueOf(cbgrupo.getSelectedItem()).split("|")[0]);
+        int IdProjeto = Integer.parseInt(String.valueOf(cbprojeto.getSelectedItem()).split("|")[0]);
         Lancamento lancamento = new Lancamento();
         lancamento.setAceleracaoMedia(Double.parseDouble(txtAceleracaoMedia.getText()));
         lancamento.setAltitudeEjecao(Double.parseDouble(txtAltitudeEjecao.getText()));
         lancamento.setAngulolancamento(Double.parseDouble(txtangulolancamento.getText()));
-        lancamento.setDataLancamento(Date.valueOf(cbdatalancamento.getDateFormatString()));
+        java.sql.Date dataLancamento = new java.sql.Date(cbdatalancamento.getDate().getTime());
+        lancamento.setDataLancamento(dataLancamento);
         lancamento.setDistanciaLancamento(Double.parseDouble(txtdistancialancamento.getText()));
         lancamento.setDuracaovoo(Double.parseDouble(txtduracaovoo.getText()));
-        lancamento.setGrupo(new Grupo(cbgrupo.getSelectedIndex()));
+        lancamento.setGrupo(new Grupo(IdGrupo));
         lancamento.setIdLancamento(0);
         lancamento.setPesoFoguete(Double.parseDouble(txtpesofoquete.getText()));
         lancamento.setPicoAceleracao(Double.parseDouble(txtPicoAceleracao.getText()));
-        lancamento.setProjeto(new Projeto(cbprojeto.getSelectedIndex()));
+        lancamento.setProjeto(new Projeto(IdProjeto));
         lancamento.setTaxaDescida(Double.parseDouble(txttaxadescida.getText()));
         lancamento.setTempoApogeuDescida(Double.parseDouble(txtapogeudescida.getText()));
         lancamento.setTempoEjecao(Double.parseDouble(txttempoejecao.getText()));
@@ -406,38 +373,61 @@ public class LancamentoForm extends javax.swing.JFrame {
             m.ErrorMessage(e.getMessage());
         }
     }
-    private void PesquisarLancamento(){
-        
-    } 
-    private void txtAceleracaoMediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAceleracaoMediaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAceleracaoMediaActionPerformed
-
-    private void txtAltitudeEjecaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAltitudeEjecaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAltitudeEjecaoActionPerformed
-
-    private void cbgrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbgrupoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbgrupoActionPerformed
-
-    private void txtPicoAceleracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPicoAceleracaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPicoAceleracaoActionPerformed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
-       PesquisarLancamento();
+        PesquisarLancamento();
     }//GEN-LAST:event_btnpesquisarActionPerformed
+    private void PesquisarLancamento() {
+        ResultSet Lancamentos = repository.GetTable();
+        try {
+            if (Lancamentos != null) {
+                tableLancamento = new JTable(Utils.buildTableModel(Lancamentos));
+            }
+        } catch (SQLException e) {
+        }
+    }
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
+        ExcluirLancamento();
+    }//GEN-LAST:event_btnexcluirActionPerformed
+    private void ExcluirLancamento() {
+        Integer row = null;
+        Integer column = null;
+        try {
+            row = tableLancamento.getSelectedRow();
+            column = tableLancamento.getSelectedColumn();
+            if (row == null || column == null) {
+                throw new Exception("Selecione o Código do lançamento para remover o mesmo!");
+            }
+
+            Object selectedObject = (Object) tableLancamento.getModel().getValueAt(row, column);
+            int idLancamento = Integer.parseInt(String.valueOf(selectedObject));
+            repository.Delete(new Lancamento(idLancamento));
+            m.SucessMessage("Lançamento removido com sucesso!");
+        } catch (Exception e) {
+
+            m.ErrorMessage(e.getMessage());
+        }
+
+    }
+
+    private void PreencherCombos() {
+       
+        ArrayList<Grupo> Grupos = gRepository.GetAll();
+        cbgrupo.removeAllItems();
+        for (Grupo g : Grupos) {
+            String item = String.valueOf(g.getIdGrupo()) + " | "+g.getNomeGrupo();
+           cbgrupo.addItem(item);
+        }  
+        ArrayList<Projeto> Projetos = pRepository.GetAll();
+        cbprojeto.removeAllItems();
+        for (Projeto p : Projetos) {
+            String item = String.valueOf(p.getIdProjeto()) + " | "+p.getNomeProjeto();
+           cbprojeto.addItem(item);
+        } 
+    }
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -445,6 +435,7 @@ public class LancamentoForm extends javax.swing.JFrame {
                     break;
                 }
             }
+
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(LancamentoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -492,7 +483,7 @@ public class LancamentoForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableLancamento;
     private javax.swing.JTextField txtAceleracaoMedia;
     private javax.swing.JTextField txtAltitudeEjecao;
     private javax.swing.JTextField txtPicoAceleracao;

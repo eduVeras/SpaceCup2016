@@ -6,7 +6,7 @@
 package SpaceCup.Entity.Entities;
 
 import SpaceCup.Business.Filter.Message;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -33,9 +33,11 @@ public class Lancamento {
     private Double Duracaovoo;
     private Projeto Projeto;
 
-    
-
     public Lancamento() {
+    }
+
+    public Lancamento(int IdLancamento) {
+        this.IdLancamento = IdLancamento;
     }
 
     public Lancamento(int IdLancamento, Date DataLancamento, Grupo Grupo, Double DistanciaLancamento, Double Angulolancamento, Double VelocidadeVento, Double PesoFoguete, Double AltitudeMaxima, Double VelocidadeMaxima, Double TempoPropulsao, Double PicoAceleracao, Double AceleracaoMedia, Double TempoApogeuDescida, Double TempoEjecao, Double AltitudeEjecao, Double TaxaDescida, Double Duracaovoo, Projeto Projeto) {
@@ -202,8 +204,8 @@ public class Lancamento {
     public void setProjeto(Projeto Projeto) {
         this.Projeto = Projeto;
     }
-    
-    public void IsValid() throws Exception{
+
+    public void IsValid() throws Exception {
         Message error = new Message();
 
         if (this.DistanciaLancamento.isNaN()) {
