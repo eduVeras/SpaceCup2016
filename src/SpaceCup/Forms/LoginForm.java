@@ -123,21 +123,24 @@ public class LoginForm extends javax.swing.JFrame {
     private void btnconfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnconfirmarActionPerformed
         AlunoRepository alunoRepository = new AlunoRepository();
         String passText = new String(txtsenha.getPassword());
-        Message msg = new Message();
+        try {
+            if (txtRm.getText().isEmpty() || passText.isEmpty()) {
+                throw new Exception("Login/senha não inseridos");
+            } else {
+                Aluno aluno = new Aluno(0, txtRm.getText(), "", null, null, passText, true);
 
-        if (txtRm.getText().isEmpty() || passText.isEmpty()) {
-            msg.ErrorMessage("Login/senha não inseridos");
-        } else {
-            Aluno aluno = new Aluno(0, txtRm.getText(), "", null, null, passText, true);
-            
-            Aluno retorno = alunoRepository.ValidarLogin(aluno);
-            if(retorno == null)
-                msg.ErrorMessage("Usuario ou senha incorretos");
-            else{
-                this.hide();
-                AlunosForm alunoform = new AlunosForm();
-                alunoform.show();
+                Aluno retorno = alunoRepository.ValidarLogin(aluno);
+                if (retorno == null) {
+                    throw new Exception("Usuario ou senha incorretos");
+                } else {
+                    this.hide();
+                    AlunosForm alunoform = new AlunosForm();
+                    alunoform.show();
+                }
             }
+        } catch (Exception e) {
+            Message msg = new Message();
+            msg.ErrorMessage(e.getMessage());
         }
 
 
@@ -145,7 +148,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         // TODO add your handling code here:
-        
+
         System.exit(0);
     }//GEN-LAST:event_btncancelarActionPerformed
 

@@ -27,7 +27,7 @@ public class Aluno {
         this.Grupo = new Grupo();
     }
 
-    public Aluno(int IdAluno, String RmAluno, String NomeAluno, Turma turma, Grupo grupo, String Password,boolean Ativo) {
+    public Aluno(int IdAluno, String RmAluno, String NomeAluno, Turma turma, Grupo grupo, String Password, boolean Ativo) {
         this.IdAluno = IdAluno;
         this.RmAluno = RmAluno;
         this.NomeAluno = NomeAluno;
@@ -92,17 +92,19 @@ public class Aluno {
     public void setAtivo(boolean Ativo) {
         this.Ativo = Ativo;
     }
-    
-    public void IsValid(){
-      Message error =  new Message();
-      
-        if (RmAluno.isEmpty()) 
-            error.ErrorMessage("Aluno - Rm não foi preenchido");
-        
-        if(this.NomeAluno.isEmpty())
-            error.ErrorMessage("Aluno - Nome não foi preenchido");
-        
-        if(this.Password.isEmpty())
-            error.ErrorMessage("Aluno - Senha não foi preenchida");
+
+    public void IsValid()throws Exception {
+
+        if (RmAluno.isEmpty()) {
+            throw new Exception("Aluno - Rm não foi preenchido");
+        }
+
+        if (this.NomeAluno.isEmpty()) {
+            throw new Exception("Aluno - Nome não foi preenchido");
+        }
+
+        if (this.Password.isEmpty()) {
+            throw new Exception("Aluno - Senha não foi preenchida");
+        }
     }
 }

@@ -5,10 +5,13 @@
  */
 package SpaceCup.Forms;
 
+import SpaceCup.Business.Filter.Message;
+import SpaceCup.Business.Repositories.AlunoRepository;
 import SpaceCup.Entity.Entities.Aluno;
 import SpaceCup.Entity.Entities.Grupo;
 import SpaceCup.Entity.Entities.Turma;
 import java.text.ParseException;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import sun.security.util.Password;
 
@@ -216,51 +219,35 @@ public class AlunosForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnomeActionPerformed
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
-       
-        try{     
-        String NomeAluno = txtnome.getText();
-        if(txtnome.getText().isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Nome do aluno obrigatorio");
-        return;
-        }
-        String RmAluno = txtrm.getText();
-        if(txtrm.getText().isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "RM do aluno obrigatorio");
-        return;
-        }
-        String Turma = txtturma.getSelectedItem();
-        
-        String Grupo = txtgrupo.getSelectedItem();
-        String Password = txtsenha.getText();
-        if(txtsenha.getText().isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Senha do aluno obrigatoria");
-        return;
-        }
-        //Turma turma = new Turma(WIDTH, NomeCurso, DataIncio);
-        Grupo grupo = new Grupo(WIDTH, NomeAluno, WIDTH);
-        int IdAluno = 0;
-        // Aluno aluno = new Aluno(IdAluno, RmAluno, NomeAluno, turma, Grupo, Password, true);
-    }
-        catch(Exception e){
-           JOptionPane.showMessageDialog(null, e);
-       }
-       finally{
-           JOptionPane.showMessageDialog(this, "Dados Salvos");
-           
-       }
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        try {
+            AlunoRepository alunorepo = new AlunoRepository();
+            
+            String NomeAluno = txtnome.getText();
+            String RmAluno = txtrm.getText();
+            String Turma = txtturma.getSelectedItem();
+            String passText = new String(txtsenha.getPassword());
+            Date dataInicio = new Date();
+            
+            
+            Turma turma = new Turma(WIDTH, txtcurso.getText(), dataInicio);
+            turma.IsValid();
+
+            Grupo grupo = new Grupo(WIDTH, NomeAluno, WIDTH);
+            grupo.IsValid();
+
+            Aluno aluno = new Aluno(0, RmAluno, NomeAluno, turma, grupo, passText, true);
+            aluno.IsValid();
+
+            alunorepo.Insert(aluno);
+            
+        } catch (Exception e) {
+            Message msg = new Message();
+            msg.ErrorMessage(e.getMessage());
+        } 
+
     }//GEN-LAST:event_btncadastrarActionPerformed
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

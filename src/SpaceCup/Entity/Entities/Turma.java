@@ -51,11 +51,9 @@ public class Turma {
         this.DataIncio = DataIncio;
     }
     
-    public void IsValid(){
-      Message error =  new Message();
-      
+    public void IsValid() throws Exception{      
         if (this.NomeCurso.isEmpty()) {
-            error.ErrorMessage("Turma - nome do curso não informado");
+            throw new Exception("Turma - nome do curso não informado");
         }
     }
 

@@ -40,11 +40,10 @@ public class Grupo {
         this.IdProjeto = IdProjeto;
     }
     
-    public void IsValid(){
+    public void IsValid() throws Exception{
         //Isto é um exemplo de como validar na entidade direto
-      Message error =  new Message();
       
         if (this.NomeGrupo.isEmpty()) 
-            error.ErrorMessage("Grupo - Nome Grupo não foi preenchido.");
+            throw new Exception("Grupo - Nome Grupo não foi preenchido.");
     }
 }
