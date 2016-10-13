@@ -7,6 +7,7 @@ package SpaceCup.Forms;
 
 import SpaceCup.Business.Filter.Message;
 import SpaceCup.Business.Repositories.AlunoRepository;
+import SpaceCup.Business.Repositories.GrupoRepository;
 import SpaceCup.Business.Repositories.ProjetoRepository;
 import SpaceCup.Business.Repositories.TurmaRepository;
 import SpaceCup.Entity.Entities.Aluno;
@@ -16,6 +17,7 @@ import SpaceCup.Entity.Entities.Turma;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  *
@@ -29,14 +31,22 @@ public class AlunosForm extends javax.swing.JFrame {
     public AlunosForm() {
         initComponents();
         TurmaRepository turmaRepository = new TurmaRepository();
+        GrupoRepository grupoRepository = new GrupoRepository();
         
+        ArrayList<Turma> turmas = new ArrayList();        
+        ArrayList<Grupo> grupos = new ArrayList();        
         
-        ArrayList<Turma> turmas = new ArrayList(); 
-        //Aqui precisamos de um array com todos os projetos
+        grupos = grupoRepository.GetAll();
+        for (Grupo grupo : grupos) {
+            //txtgrupo.insert(grupo.getNomeGrupo(),grupo.getIdGrupo());
+            txtgrupo.addItem(grupo.getNomeGrupo());
+            
+        }
+        
         turmas = turmaRepository.GetAll();
         for (Turma turma : turmas) {
+            //txtturma.insert(turma.getNomeCurso(), turma.getIdTurma());
             txtturma.add(turma.getNomeCurso());
-        
         }
         
     }
@@ -114,6 +124,11 @@ public class AlunosForm extends javax.swing.JFrame {
         btnexcluir.setText("Excluir");
 
         btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
 
         label6.setText("RM do Aluno:");
 
@@ -231,7 +246,7 @@ public class AlunosForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnomeActionPerformed
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
-
+        
         try {
             AlunoRepository alunorepo = new AlunoRepository();
             
@@ -240,26 +255,31 @@ public class AlunosForm extends javax.swing.JFrame {
             String Turma = txtturma.getSelectedItem();
             String passText = new String(txtsenha.getPassword());
             Date dataInicio = new Date();
+            int idTurma = txtturma.getSelectedIndex();
             
             
-            Turma turma = new Turma(WIDTH, txtcurso.getText(), dataInicio);
+            Turma turma = new Turma(idTurma, Turma, dataInicio);
             turma.IsValid();
-
-            Grupo grupo = new Grupo(WIDTH, NomeAluno, WIDTH);
+            
+            Grupo grupo = new Grupo(txtgrupo.getSelectedIndex(), NomeAluno, WIDTH);
             grupo.IsValid();
-
+            
             Aluno aluno = new Aluno(0, RmAluno, NomeAluno, turma, grupo, passText, true);
             aluno.IsValid();
-
+            
             alunorepo.Insert(aluno);
             
         } catch (Exception e) {
             Message msg = new Message();
             msg.ErrorMessage(e.getMessage());
-        } 
+        }        
 
     }//GEN-LAST:event_btncadastrarActionPerformed
 
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnsairActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
