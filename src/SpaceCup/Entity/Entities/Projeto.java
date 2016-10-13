@@ -8,6 +8,8 @@ public class Projeto {
     private Date DataEntrega;
     private String DetalhesProjeto;
     private Grupo Grupo;
+    
+    
     public Projeto() {
     }
     public Projeto(int IdProjeto) {

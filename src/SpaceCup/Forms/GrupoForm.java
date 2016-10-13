@@ -5,7 +5,13 @@
  */
 package SpaceCup.Forms;
 
+import SpaceCup.Business.Filter.Message;
+import SpaceCup.Business.Repositories.GrupoRepository;
+import SpaceCup.Business.Repositories.ProjetoRepository;
+import SpaceCup.Entity.Entities.Grupo;
 import SpaceCup.Entity.Entities.Projeto;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -16,6 +22,18 @@ public class GrupoForm extends javax.swing.JFrame {
     
     public GrupoForm() {
         initComponents();
+        btneditar.setEnabled(false);
+        btnexcluir.setEnabled(false);
+        
+        this.cbprojeto.removeAllItems();
+        ProjetoRepository projetoRepository = new ProjetoRepository();
+        ArrayList<Projeto>cbprojeto = new ArrayList(); 
+        //Aqui precisamos de um array com todos os projetos
+        cbprojeto = projetoRepository.GetAll();
+        for (Projeto proj: cbprojeto) {
+            cbprojeto.add(proj.getIdProjeto(), proj);
+        
+        }
     }
 
     /**
@@ -36,6 +54,7 @@ public class GrupoForm extends javax.swing.JFrame {
         btneditar = new javax.swing.JButton();
         btnsair = new javax.swing.JButton();
         btnexcluir = new javax.swing.JButton();
+        btnbuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,10 +73,25 @@ public class GrupoForm extends javax.swing.JFrame {
         jLabel2.setText("Grupo:");
 
         btnsalvar.setText("Salvar");
+        btnsalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalvarActionPerformed(evt);
+            }
+        });
 
         btneditar.setText("Editar");
+        btneditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditarActionPerformed(evt);
+            }
+        });
 
         btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
 
         btnexcluir.setText("Excluir");
         btnexcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -66,26 +100,37 @@ public class GrupoForm extends javax.swing.JFrame {
             }
         });
 
+        btnbuscar.setText("Buscar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtnomegrupo, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbprojeto, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                            .addComponent(btnsalvar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btneditar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnexcluir)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnsair))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtnomegrupo)
+                    .addComponent(cbprojeto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(btnsalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnbuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btneditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnexcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnsair)))
+                .addContainerGap())
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,8 +147,9 @@ public class GrupoForm extends javax.swing.JFrame {
                     .addComponent(btnsalvar)
                     .addComponent(btneditar)
                     .addComponent(btnsair)
-                    .addComponent(btnexcluir))
-                .addGap(0, 5, Short.MAX_VALUE))
+                    .addComponent(btnexcluir)
+                    .addComponent(btnbuscar))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,19 +167,99 @@ public class GrupoForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbprojetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbprojetoActionPerformed
-        this.cbprojeto.removeAllItems();
-        //Aqui precisamos de um array com todos os projetos
         
         
     }//GEN-LAST:event_cbprojetoActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
-        // TODO add your handling code here:
+        GrupoRepository gruporepository = new GrupoRepository();
+      Message msg = new Message();
+      String NomeGrupo = "";
+      int IdProjeto=0;
+      if(txtnomegrupo.getText().isEmpty()){
+          msg.ErrorMessage("Preencha um nome para o grupo");
+      }else{
+      NomeGrupo = txtnomegrupo.getText();
+      IdProjeto = cbprojeto.getSelectedIndex();
+      }
+      Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+        gruporepository.Delete(grupo);
+      msg.SucessMessage("Grupo excluido com sucesso");
+      
+      limparcampos();
     }//GEN-LAST:event_btnexcluirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
+      GrupoRepository gruporepository = new GrupoRepository();
+      Message msg = new Message();
+      String NomeGrupo = "";
+      int IdProjeto=0;
+             
+      if(txtnomegrupo.getText().isEmpty()){
+          msg.ErrorMessage("Preencha um nome para o grupo");
+      }else{
+      NomeGrupo = txtnomegrupo.getText();
+      IdProjeto = cbprojeto.getSelectedIndex();
+      }
+      Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+        gruporepository.Insert(grupo);
+      msg.SucessMessage("Grupo inserido com sucesso");
+      
+      limparcampos();
+    }//GEN-LAST:event_btnsalvarActionPerformed
+
+    private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
+      GrupoRepository gruporepository = new GrupoRepository();
+      Message msg = new Message();
+      String NomeGrupo = "";
+      int IdProjeto=0;
+             
+      if(txtnomegrupo.getText().isEmpty()){
+          msg.ErrorMessage("Preencha um nome para o grupo");
+      }else{
+      NomeGrupo = txtnomegrupo.getText();
+      IdProjeto = cbprojeto.getSelectedIndex();
+      }
+      Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+        gruporepository.Update(grupo);
+      msg.SucessMessage("Grupo alterado com sucesso");
+      limparcampos();
+    }//GEN-LAST:event_btneditarActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        GrupoRepository gruporepository = new GrupoRepository();
+      Message msg = new Message();
+      String NomeGrupo = "";
+      int IdProjeto=0;
+     
+     if(txtnomegrupo.getText().isEmpty()){
+          NomeGrupo = "";
+      }else{
+      NomeGrupo = txtnomegrupo.getText();
+      IdProjeto = cbprojeto.getSelectedIndex();
+      }
+      //Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+      
+      Grupo retorno = gruporepository.GetGrupo(0, NomeGrupo, IdProjeto);
+      if(retorno == null){
+          msg.ErrorMessage("Grupo não encontrado");
+          limparcampos();
+      }
+      else{
+          btneditar.setEnabled(true);
+          btnexcluir.setEnabled(true);
+          txtnomegrupo.setText(retorno.getNomeGrupo());
+          cbprojeto.setSelectedIndex(retorno.getIdProjeto());
+      }
+      
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+         dispose();
+    }//GEN-LAST:event_btnsairActionPerformed
+
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -167,6 +293,7 @@ public class GrupoForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btneditar;
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnsair;
@@ -177,4 +304,11 @@ public class GrupoForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtnomegrupo;
     // End of variables declaration//GEN-END:variables
+
+    private void limparcampos() {
+        btneditar.setEnabled(false);
+        btnexcluir.setEnabled(false);
+        txtnomegrupo.setText("");
+        cbprojeto.setSelectedIndex(0);
+    }
 }

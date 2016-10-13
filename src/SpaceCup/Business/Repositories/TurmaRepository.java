@@ -42,8 +42,8 @@ public class TurmaRepository extends Message implements ITurmaRepository {
     public void Update(Turma obj) {
         String sql = "UPDATE Turma "
                 + "SET NomeCurso = ?,"
-                + "DataIncio = ?,"
-                + "WHERE ID_Turma = ?";
+                + "DataInicio = ?,"
+                + "WHERE IdTurma = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;

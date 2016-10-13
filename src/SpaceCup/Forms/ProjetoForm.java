@@ -5,6 +5,15 @@
  */
 package SpaceCup.Forms;
 
+import SpaceCup.Business.Filter.Message;
+import SpaceCup.Business.Repositories.GrupoRepository;
+import SpaceCup.Business.Repositories.ProjetoRepository;
+import SpaceCup.Entity.Entities.Grupo;
+import SpaceCup.Entity.Entities.Projeto;
+
+import java.sql.Date;
+import java.util.ArrayList;
+
 /**
  *
  * @author Bruno
@@ -16,6 +25,17 @@ public class ProjetoForm extends javax.swing.JFrame {
      */
     public ProjetoForm() {
         initComponents();
+         btneditar.setEnabled(false);
+         btnexcluir.setEnabled(false);
+         this.cbgrupo.removeAllItems();
+        GrupoRepository gruporepository = new GrupoRepository();
+        ArrayList<Grupo>cbgrupo = new ArrayList(); 
+        //Aqui precisamos de um array com todos os projetos
+        cbgrupo = gruporepository.GetAll();
+        for (Grupo gr: cbgrupo) {
+            cbgrupo.add(gr.getIdGrupo(), gr);
+        
+        }
     }
 
     /**
@@ -32,7 +52,7 @@ public class ProjetoForm extends javax.swing.JFrame {
         txtnomeprojeto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        txtdetalhes = new javax.swing.JTextPane();
         btnsalvar = new javax.swing.JButton();
         btneditar = new javax.swing.JButton();
         btnexcluir = new javax.swing.JButton();
@@ -42,7 +62,8 @@ public class ProjetoForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbgrupo = new javax.swing.JComboBox<>();
+        btnpesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,15 +74,25 @@ public class ProjetoForm extends javax.swing.JFrame {
 
         jLabel2.setText("Detalhes do Projeto:");
 
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(txtdetalhes);
 
         btnsalvar.setText("Salvar");
+        btnsalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalvarActionPerformed(evt);
+            }
+        });
 
         btneditar.setText("Editar");
 
         btnexcluir.setText("Excluir");
 
         btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Data de Inicio:");
 
@@ -69,40 +100,50 @@ public class ProjetoForm extends javax.swing.JFrame {
 
         jLabel5.setText("Grupo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbgrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnpesquisar.setText("Buscar");
+        btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(btnsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnsair, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jInternalFrame1Layout.createSequentialGroup()
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtnomeprojeto)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5)
-                            .addComponent(jComboBox1, 0, 269, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbdataentrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbdatainicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(197, 197, 197))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtnomeprojeto, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbgrupo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbdatainicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                .addComponent(jLabel4)
+                                .addComponent(cbdataentrega, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(btnsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnpesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnexcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnsair, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,17 +153,19 @@ public class ProjetoForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtnomeprojeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(txtnomeprojeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)))
                 .addGap(4, 4, 4)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2))
                     .addComponent(cbdataentrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,8 +176,9 @@ public class ProjetoForm extends javax.swing.JFrame {
                     .addComponent(btnsalvar)
                     .addComponent(btneditar)
                     .addComponent(btnexcluir)
-                    .addComponent(btnsair))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(btnsair)
+                    .addComponent(btnpesquisar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,9 +195,70 @@ public class ProjetoForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
+        ProjetoRepository projetorepository = new ProjetoRepository();
+        Message msg = new Message();
+        
+        String NomeProjeto = "";
+        Date DataInicio = null;
+        Date DataEntrega = null;
+        String DetalhesProjeto = "";
+        Grupo Grupo;
+        
+        if(txtnomeprojeto.getText().isEmpty()){
+            msg.ErrorMessage("Digite um nome para o projeto");
+        }else{
+        NomeProjeto = txtnomeprojeto.getText();
+        }
+        if(cbdataentrega.getDate()==null){
+            msg.ErrorMessage("selecione uma data de entrega");
+        }else{
+        DataEntrega = (Date) cbdataentrega.getDate();
+        }
+        if(cbdatainicio.getDate()==null){
+            msg.ErrorMessage("selecione uma data de inicio");
+        }else{
+           DataInicio = (Date) cbdatainicio.getDate(); 
+        }
+        Grupo = new Grupo(cbgrupo.getSelectedIndex(), NomeProjeto, 0);
+        DetalhesProjeto = txtdetalhes.getText();
+        Projeto projeto = new Projeto(0, NomeProjeto, DataInicio, DataEntrega, DetalhesProjeto, Grupo);
+        
+        projetorepository.Insert(projeto);
+        msg.SucessMessage("Projeto inserido com sucesso");
+        limparCampos();
+    }//GEN-LAST:event_btnsalvarActionPerformed
+
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnsairActionPerformed
+
+    private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
+      ProjetoRepository projetorepository = new ProjetoRepository();
+        Message msg = new Message();
+        
+        String NomeProjeto = "";
+        Date DataInicio = null;
+        Date DataEntrega = null;
+        String DetalhesProjeto = "";
+        Grupo Grupo;
+        
+        if(txtnomeprojeto.getText().isEmpty()){
+            msg.ErrorMessage("Digite um nome de projeto para pesquisar");
+        }else{
+        NomeProjeto = txtnomeprojeto.getText();
+        }
+        
+       
+        Grupo = new Grupo(cbgrupo.getSelectedIndex(), NomeProjeto, 0);
+        Projeto projeto = new Projeto(0, NomeProjeto, null, null, "", null);
+        
+        projetorepository.Insert(projeto);
+        msg.SucessMessage("Projeto inserido com sucesso");
+        
+    }//GEN-LAST:event_btnpesquisarActionPerformed
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -189,11 +294,12 @@ public class ProjetoForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btneditar;
     private javax.swing.JButton btnexcluir;
+    private javax.swing.JButton btnpesquisar;
     private javax.swing.JButton btnsair;
     private javax.swing.JButton btnsalvar;
     private com.toedter.calendar.JDateChooser cbdataentrega;
     private com.toedter.calendar.JDateChooser cbdatainicio;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbgrupo;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -201,7 +307,17 @@ public class ProjetoForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane txtdetalhes;
     private javax.swing.JTextField txtnomeprojeto;
     // End of variables declaration//GEN-END:variables
+
+    private void limparCampos() {
+      txtdetalhes.setText("");
+      txtnomeprojeto.setText("");
+      cbdataentrega.setDate(null);
+      cbdatainicio.setDate(null);
+      cbgrupo.setSelectedIndex(0);
+      btneditar.setEnabled(false);
+      btnexcluir.setEnabled(false);
+    }
 }

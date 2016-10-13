@@ -59,6 +59,37 @@ public class GrupoRepository extends Message implements IGrupoRepository {
         }
         return retorno;
     }
+    public Grupo GetGrupo(int idgrupo, String nomegrupo, int idprojeto) {
+           
+        String sql = "SELECT * "
+                + "FROM GRUPO "
+                + "WHERE ((ID_GRUPO = ?) or nvl(?,0) = 0)"
+                + "AND ((NOMEGRUPO = ?) or ? is null)"
+                + "AND ((ID_PROJETO = ?) or nvl(?,0) = 0)";
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        Grupo retorno = new Grupo();
+        try {
+
+            ps = conexao.prepareStatement(sql);
+            ps.setInt(1, idgrupo);
+            ps.setString(2,nomegrupo);
+            ps.setInt(3, idprojeto);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int IdGrupo = rs.getInt(1);
+                String NomeGrupo = rs.getString(2);
+                int IdProjeto = rs.getInt(1);
+                retorno = new Grupo(IdGrupo, NomeGrupo, IdProjeto);
+            }
+
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Buscar grupo.\n" + e);
+        }
+        return retorno;
+    }
     @Override
     public void Update(Grupo obj) {
          String sql = "UPDATE GRUPO "
