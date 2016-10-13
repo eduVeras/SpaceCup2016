@@ -100,8 +100,8 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
 
     @Override
     public void Update(Lancamento obj) {
-        String sql = "UPDATE LANCAMENTO SET "
-                + " Projeto_IdProjeto = ?,"
+        String sql = "UPDATE LANCAMENTO  "
+                + "SET Projeto_IdProjeto = ?,"
                 + " DataLancamento=?,"
                 + " Grupo=?,"
                 + " DistanciaLancamento=?,"

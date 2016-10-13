@@ -481,6 +481,7 @@ public class LancamentoForm extends javax.swing.JFrame {
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
         ExcluirLancamento();
+        PesquisarLancamento();
     }//GEN-LAST:event_btnexcluirActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
