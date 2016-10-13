@@ -52,12 +52,14 @@ public class AlunoRepository extends Message implements IAlunoRepository{
     @Override
     public void Insert(Aluno obj) {
         
-        String sql = "INSERT INTO ALUNO (RM_Aluno,"
-                + "Nome_Aluno,"
-                + "ID_Turma,"
-                + "ID_Grupo,"
-                + "Ativo_Aluno)"
-                + "VALUES(?,?,?,?)";
+        String sql = "INSERT INTO ALUNO ("
+                + "RMALUNO,"
+                + "NOMEALUNO,"
+                + "IDTurma,"
+                + "IDGrupo,"
+                + "PASSWORD,"
+                + "Ativo)"
+                + "VALUES(?,?,?,?,?,?)";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -69,7 +71,8 @@ public class AlunoRepository extends Message implements IAlunoRepository{
             ps.setString(2, obj.getNomeAluno());
             ps.setInt(3, obj.getTurma().getIdTurma());
             ps.setInt(4, obj.getGrupo().getIdGrupo());
-            ps.setBoolean(5, obj.getAtivo());
+            ps.setString(5,obj.getPassword());
+            ps.setBoolean(6, obj.getAtivo());
             ps.execute();
 
         } catch (SQLException e) {
@@ -110,12 +113,13 @@ public class AlunoRepository extends Message implements IAlunoRepository{
     public void Update(Aluno obj) {
 
         String sql = "UPDATE ALUNO "
-                + "SET RM_Aluno = ?,"
-                + "Nome_Aluno = ?,"
-                + "ID_Turma = ?,"
-                + "ID_Grupo = ?,"
-                + "Ativo_Aluno=?"
-                + "WHERE ID_Aluno = ?";
+                + "SET RMAluno = ?,"
+                + "NomeAluno = ?,"
+                + "IDTurma = ?,"
+                + "IDGrupo = ?,"
+                + "PASSWORD = ?,"
+                + "Ativo=?"
+                + "WHERE IDAluno = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -128,8 +132,9 @@ public class AlunoRepository extends Message implements IAlunoRepository{
             ps.setString(2, obj.getNomeAluno());
             ps.setInt(3, obj.getTurma().getIdTurma());
             ps.setInt(4, obj.getGrupo().getIdGrupo());
-            ps.setBoolean(5, obj.getAtivo());
-            ps.setInt(6, obj.getIdAluno());
+            ps.setString(5,obj.getPassword());
+            ps.setBoolean(6, obj.getAtivo());
+            ps.setInt(7, obj.getIdAluno());
 
             ps.executeUpdate();
 
@@ -140,8 +145,8 @@ public class AlunoRepository extends Message implements IAlunoRepository{
     @Override
     public void Delete(Aluno obj) {
         String sql = "UPDATE ALUNO "
-                + "Ativo_Aluno=?"
-                + "WHERE ID_Aluno = ?";
+                + "Ativo=?"
+                + "WHERE IDAluno = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
