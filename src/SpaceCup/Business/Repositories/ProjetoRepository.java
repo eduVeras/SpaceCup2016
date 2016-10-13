@@ -4,6 +4,7 @@ import SpaceCup.Business.Connection;
 import SpaceCup.Business.Filter.Message;
 import SpaceCup.Entity.Entities.Grupo;
 import SpaceCup.Entity.Entities.Projeto;
+import SpaceCup.Entity.Entities.Turma;
 import SpaceCup.Entity.Interfaces.IProjetoRepository;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProjetoRepository implements IProjetoRepository {
+public class ProjetoRepository extends Message implements IProjetoRepository {
 
     private static java.sql.Connection conexao;
 
@@ -49,8 +50,8 @@ public class ProjetoRepository implements IProjetoRepository {
         ResultSet rs = null;
         PreparedStatement ps = null;
         Projeto retorno = new Projeto();
-        Grupo Grupo  = new Grupo();
-        
+        Grupo Grupo = new Grupo();
+
         try {
 
             ps = conexao.prepareStatement(sql);
@@ -78,13 +79,13 @@ public class ProjetoRepository implements IProjetoRepository {
 
     @Override
     public void Update(Projeto obj) {
-          Message msg = new Message();
-        
+        Message msg = new Message();
+
         String sql = "UPDATE PROJETO "
                 + "SET NomeProjeto = ?,"
                 + "DataInicio = ?,"
-                  + "DataEntrega = ?,"
-                  + "DetalhesProjeto = ?,"
+                + "DataEntrega = ?,"
+                + "DetalhesProjeto = ?,"
                 + "WHERE IdProjeto = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
@@ -106,12 +107,40 @@ public class ProjetoRepository implements IProjetoRepository {
 
     @Override
     public void Delete(Projeto obj) {
-        
+
     }
 
     @Override
     public ArrayList<Projeto> GetAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         String sql = "SELECT * FROM PROJETO ";
+
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        ArrayList<Projeto> retorno = new ArrayList<>();
+
+        try {
+
+            ps = conexao.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int IdProjeto = rs.getInt(1);
+                String NomeProjeto = rs.getString(2);
+                int IdGrupo = rs.getInt(3);
+                Date DataIncio = rs.getDate(4);
+                Date DataEntrega = rs.getDate(5);
+                String DetalhesProjeto = rs.getString(6);
+
+                retorno.add(new Projeto(IdProjeto, NomeProjeto, DataIncio, DataEntrega, DetalhesProjeto, new Grupo()));
+            }
+
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Buscar turmas.\n" + e);
+        }
+        return retorno;
+
+        
     }
 
 }

@@ -7,10 +7,14 @@ package SpaceCup.Forms;
 
 import SpaceCup.Business.Filter.Message;
 import SpaceCup.Business.Repositories.AlunoRepository;
+import SpaceCup.Business.Repositories.ProjetoRepository;
+import SpaceCup.Business.Repositories.TurmaRepository;
 import SpaceCup.Entity.Entities.Aluno;
 import SpaceCup.Entity.Entities.Grupo;
+import SpaceCup.Entity.Entities.Projeto;
 import SpaceCup.Entity.Entities.Turma;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import sun.security.util.Password;
@@ -26,6 +30,16 @@ public class AlunosForm extends javax.swing.JFrame {
      */
     public AlunosForm() {
         initComponents();
+        TurmaRepository turmaRepository = new TurmaRepository();
+        
+        
+        ArrayList<Turma> turmas = new ArrayList(); 
+        //Aqui precisamos de um array com todos os projetos
+        turmas = turmaRepository.GetAll();
+        for (Turma turma : turmas) {
+            txtturma.add(turma.getNomeCurso());
+        
+        }
         
     }
 
