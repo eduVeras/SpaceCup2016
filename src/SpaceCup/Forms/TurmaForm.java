@@ -5,17 +5,25 @@
  */
 package SpaceCup.Forms;
 
+import SpaceCup.Business.Filter.Message;
+import SpaceCup.Business.Repositories.TurmaRepository;
+import SpaceCup.Entity.Entities.Turma;
+import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Bruno
  */
 public class TurmaForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TurmaForm
-     */
+    private TurmaRepository repository = new TurmaRepository();
+
     public TurmaForm() {
         initComponents();
+        btneditar.setEnabled(false);
+        btnexcluir.setEnabled(false);
     }
 
     /**
@@ -36,6 +44,7 @@ public class TurmaForm extends javax.swing.JFrame {
         btneditar = new javax.swing.JButton();
         btnexcluir = new javax.swing.JButton();
         btnsair = new javax.swing.JButton();
+        btnbuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,10 +63,32 @@ public class TurmaForm extends javax.swing.JFrame {
         });
 
         btneditar.setText("Editar");
+        btneditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneditarActionPerformed(evt);
+            }
+        });
 
         btnexcluir.setText("Excluir");
+        btnexcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnexcluirActionPerformed(evt);
+            }
+        });
 
         btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
+
+        btnbuscar.setText("Buscar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
@@ -65,16 +96,18 @@ public class TurmaForm extends javax.swing.JFrame {
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtnomecurso)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(txtnomecurso, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addComponent(btnsalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnbuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btneditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnexcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnsair, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -96,8 +129,9 @@ public class TurmaForm extends javax.swing.JFrame {
                     .addComponent(btnsalvar)
                     .addComponent(btneditar)
                     .addComponent(btnexcluir)
-                    .addComponent(btnsair))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(btnsair)
+                    .addComponent(btnbuscar))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -115,8 +149,86 @@ public class TurmaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
-       
+        Turma turma = new Turma();
+        Message m = new Message();
+        turma.setNomeCurso(txtnomecurso.getText());
+        turma.setDataInicio(new java.sql.Date(cbdatainicio.getDate().getTime()));
+
+        try {
+            turma.IsValid();
+            repository.Insert(turma);
+            m.SucessMessage("Turma criada com sucesso");
+            limparcampos();
+
+        } catch (Exception e) {
+            m.ErrorMessage(e.getMessage());
+        }
+
+
     }//GEN-LAST:event_btnsalvarActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+
+        Turma turma = new Turma();
+
+        turma.setNomeCurso(txtnomecurso.getText());
+        turma.setIdTurma(0);
+        turma.setDataInicio(null);
+
+        try {
+            turma.IsValid();
+            turma = repository.GetByName(turma);
+            btneditar.setEnabled(true);
+            btnexcluir.setEnabled(true);
+            txtnomecurso.setText(turma.getNomeCurso());
+            cbdatainicio.setDate(turma.getDataInicio());
+           
+        } catch (Exception e) {
+            Message m = new Message();
+            m.ErrorMessage(e.getMessage());
+        }
+
+
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
+       Turma turma = new Turma();
+        Message m = new Message();
+        turma.setNomeCurso(txtnomecurso.getText());
+        turma.setDataInicio(new java.sql.Date(cbdatainicio.getDate().getTime()));
+
+        try {
+            turma.IsValid();
+            repository.Update(turma);
+            m.SucessMessage("Turma alterada com sucesso");
+            limparcampos();
+
+        } catch (Exception e) {
+            m.ErrorMessage(e.getMessage());
+        }
+
+    }//GEN-LAST:event_btneditarActionPerformed
+
+    private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
+      Turma turma = new Turma();
+        Message m = new Message();
+        turma.setNomeCurso(txtnomecurso.getText());
+        turma.setDataInicio(new java.sql.Date(cbdatainicio.getDate().getTime()));
+
+        try {
+            turma.IsValid();
+            repository.Delete(turma);
+            m.SucessMessage("Turma excluida com sucesso");
+            limparcampos();
+
+        } catch (Exception e) {
+            m.ErrorMessage(e.getMessage());
+        }
+    }//GEN-LAST:event_btnexcluirActionPerformed
+
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_btnsairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,12 +260,15 @@ public class TurmaForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
                 new TurmaForm().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btneditar;
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnsair;
@@ -164,4 +279,11 @@ public class TurmaForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtnomecurso;
     // End of variables declaration//GEN-END:variables
+
+    private void limparcampos() {
+        txtnomecurso.setText("");
+        cbdatainicio.cleanup();
+        btneditar.setEnabled(false);
+        btnexcluir.setEnabled(false);
+    }
 }

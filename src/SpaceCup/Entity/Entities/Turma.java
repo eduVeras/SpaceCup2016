@@ -16,15 +16,15 @@ public class Turma {
 
     private int IdTurma;
     private String NomeCurso;
-    private Date DataIncio;
+    private Date DataInicio;
 
     public Turma() {
     }
 
-    public Turma(int IdTurma, String NomeCurso, Date DataIncio) {
+    public Turma(int IdTurma, String NomeCurso, Date DataInicio) {
         this.IdTurma = IdTurma;
         this.NomeCurso = NomeCurso;
-        this.DataIncio = DataIncio;
+        this.DataInicio = DataInicio;
     }
 
     public int getIdTurma() {
@@ -43,12 +43,12 @@ public class Turma {
         this.NomeCurso = NomeCurso;
     }
 
-    public Date getDataIncio() {
-        return DataIncio;
+    public Date getDataInicio() {
+        return DataInicio;
     }
 
-    public void setDataIncio(Date DataIncio) {
-        this.DataIncio = DataIncio;
+    public void setDataInicio(Date DataInicio) {
+        this.DataInicio = DataInicio;
     }
     
     public void IsValid() throws Exception{      
