@@ -23,6 +23,7 @@ public class AlunosForm extends javax.swing.JFrame {
      */
     public AlunosForm() {
         initComponents();
+        
     }
 
     /**
