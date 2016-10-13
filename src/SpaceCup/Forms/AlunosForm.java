@@ -82,6 +82,8 @@ public class AlunosForm extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         cbdatainicio = new com.toedter.calendar.JDateChooser();
 
+        setResizable(false);
+
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jInternalFrame1, org.jdesktop.beansbinding.ELProperty.create("${closable}"), this, org.jdesktop.beansbinding.BeanProperty.create("defaultCloseOperation"));
         bindingGroup.addBinding(binding);
 

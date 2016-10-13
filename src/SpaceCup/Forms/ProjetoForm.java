@@ -46,6 +46,7 @@ public class ProjetoForm extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
@@ -65,7 +66,10 @@ public class ProjetoForm extends javax.swing.JFrame {
         cbgrupo = new javax.swing.JComboBox<>();
         btnpesquisar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jInternalFrame1, org.jdesktop.beansbinding.ELProperty.create("${closable}"), this, org.jdesktop.beansbinding.BeanProperty.create("defaultCloseOperation"));
+        bindingGroup.addBinding(binding);
 
         jInternalFrame1.setTitle("Controle de Projeto");
         jInternalFrame1.setVisible(true);
@@ -192,6 +196,8 @@ public class ProjetoForm extends javax.swing.JFrame {
             .addComponent(jInternalFrame1)
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -309,6 +315,7 @@ public class ProjetoForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane txtdetalhes;
     private javax.swing.JTextField txtnomeprojeto;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     private void limparCampos() {
