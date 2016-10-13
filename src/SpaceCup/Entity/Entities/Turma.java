@@ -20,6 +20,9 @@ public class Turma {
 
     public Turma() {
     }
+     public Turma(int IdTurma) {
+          this.IdTurma = IdTurma;
+    }
 
     public Turma(int IdTurma, String NomeCurso, Date DataInicio) {
         this.IdTurma = IdTurma;
