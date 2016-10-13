@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
   <BindingProperties>
     <BindingProperty name="defaultCloseOperation" source="jInternalFrame1" sourcePath="${closable}" target="Form" targetPath="defaultCloseOperation" updateStrategy="0" immediately="false"/>
   </BindingProperties>
@@ -153,7 +156,7 @@
                       <Component id="btnexcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnsair" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

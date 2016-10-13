@@ -52,12 +52,14 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(760, 650));
-        setPreferredSize(new java.awt.Dimension(400, 300));
+        setPreferredSize(new java.awt.Dimension(760, 650));
+        setResizable(false);
 
         jInternalFrame2.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         jInternalFrame2.setForeground(new java.awt.Color(51, 51, 255));
         jInternalFrame2.setTitle("Sistema SpaceCup");
-        jInternalFrame2.setMaximumSize(new java.awt.Dimension(670, 750));
+        jInternalFrame2.setMaximumSize(new java.awt.Dimension(760, 650));
+        jInternalFrame2.setPreferredSize(new java.awt.Dimension(760, 650));
         jInternalFrame2.setVisible(true);
 
         jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bruno\\Downloads\\4de29e1fab0ac8a245f55a02fa22f956.png")); // NOI18N
@@ -121,8 +123,9 @@ public class MainForm extends javax.swing.JFrame {
         jInternalFrame2Layout.setHorizontalGroup(
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnsair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnturmas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,22 +141,24 @@ public class MainForm extends javax.swing.JFrame {
         jInternalFrame2Layout.setVerticalGroup(
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame2Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addGap(0, 24, Short.MAX_VALUE))
-            .addGroup(jInternalFrame2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnalunos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btngrupos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnlancamentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnprojetos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnturmas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnsair)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnalunos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btngrupos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnlancamentos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnprojetos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnturmas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnsair))
+                    .addGroup(jInternalFrame2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         jInternalFrame2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnalunos, btngrupos, btnlancamentos, btnprojetos, btnsair, btnturmas});
@@ -182,8 +187,8 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnalunosActionPerformed
 
     private void btngruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngruposActionPerformed
-        GrupoForm form = new GrupoForm();
-      form.show();
+       GrupoForm form = new GrupoForm();
+        form.show();
     }//GEN-LAST:event_btngruposActionPerformed
 
     private void btnlancamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlancamentosActionPerformed

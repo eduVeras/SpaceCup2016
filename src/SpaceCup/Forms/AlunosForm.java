@@ -72,6 +72,8 @@ public class AlunosForm extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
+        setResizable(false);
+
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jInternalFrame1, org.jdesktop.beansbinding.ELProperty.create("${closable}"), this, org.jdesktop.beansbinding.BeanProperty.create("defaultCloseOperation"));
         bindingGroup.addBinding(binding);
 
@@ -208,7 +210,7 @@ public class AlunosForm extends javax.swing.JFrame {
                     .addComponent(btnpesquisar)
                     .addComponent(btnexcluir)
                     .addComponent(btnsair))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
 
         Curso.getAccessibleContext().setAccessibleName("RM");
