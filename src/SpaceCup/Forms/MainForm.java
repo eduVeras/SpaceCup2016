@@ -62,8 +62,6 @@ public class MainForm extends javax.swing.JFrame {
         jInternalFrame2.setPreferredSize(new java.awt.Dimension(760, 650));
         jInternalFrame2.setVisible(true);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Bruno\\Downloads\\4de29e1fab0ac8a245f55a02fa22f956.png")); // NOI18N
-
         btnalunos.setBackground(new java.awt.Color(153, 153, 255));
         btnalunos.setForeground(new java.awt.Color(51, 51, 255));
         btnalunos.setText("Alunos");
@@ -162,8 +160,6 @@ public class MainForm extends javax.swing.JFrame {
         );
 
         jInternalFrame2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnalunos, btngrupos, btnlancamentos, btnprojetos, btnsair, btnturmas});
-
-        jLabel2.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

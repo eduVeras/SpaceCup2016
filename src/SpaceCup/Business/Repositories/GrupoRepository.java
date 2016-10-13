@@ -13,7 +13,7 @@ public class GrupoRepository extends Message implements IGrupoRepository {
     
     @Override
     public void Insert(Grupo obj) {
-         String sql = "INSERT INTO GRUPO (Nome_Grupo,ID_Projeto,Ativo_Grupo)"
+         String sql = "INSERT INTO GRUPO (NomeGrupo,IDProjeto,Ativo)"
                 + "VALUES(?,?,?,?)";
         conexao = Connection.getConnection();
         ResultSet rs = null;
@@ -36,7 +36,7 @@ public class GrupoRepository extends Message implements IGrupoRepository {
     public Grupo GetById(int id) {
            String sql = "SELECT * "
                 + "FROM GRUPO "
-                + "WHERE ID_GRUPO = ?";
+                + "WHERE IDGRUPO = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -63,9 +63,9 @@ public class GrupoRepository extends Message implements IGrupoRepository {
            
         String sql = "SELECT * "
                 + "FROM GRUPO "
-                + "WHERE ((ID_GRUPO = ?) or nvl(?,0) = 0)"
+                + "WHERE ((IDGRUPO = ?) or nvl(?,0) = 0)"
                 + "AND ((NOMEGRUPO = ?) or ? is null)"
-                + "AND ((ID_PROJETO = ?) or nvl(?,0) = 0)";
+                + "AND ((IDPROJETO = ?) or nvl(?,0) = 0)";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -93,9 +93,10 @@ public class GrupoRepository extends Message implements IGrupoRepository {
     @Override
     public void Update(Grupo obj) {
          String sql = "UPDATE GRUPO "
-                + "SET Nome_Grupo = ? , "
-                + "ID_Projeto = ? , "
-                + "Ativo_Grupo = ?, ";
+                + "SET NomeGrupo = ? , "
+                + "IDProjeto = ? , "
+                + "Ativo = ?,"
+                 + "where IDGRUPO = ? ";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -106,6 +107,7 @@ public class GrupoRepository extends Message implements IGrupoRepository {
             ps.setString(1, obj.getNomeGrupo());
             ps.setInt(2, obj.getIdProjeto());
             ps.setBoolean(3, obj.getAtivo());
+            ps.setInt(4, obj.getIdGrupo());
             ps.execute();
 
         } catch (SQLException e) {
@@ -115,9 +117,9 @@ public class GrupoRepository extends Message implements IGrupoRepository {
 
     @Override
     public void Delete(Grupo obj) {
-           String sql = "UPDATE ALUNO "
-                + "Ativo_Aluno=?"
-                + "WHERE ID_Aluno = ?";
+           String sql = "UPDATE Grupo "
+                + "Ativo=?"
+                + "WHERE IDGrupo = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;

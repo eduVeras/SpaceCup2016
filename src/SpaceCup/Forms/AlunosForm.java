@@ -7,6 +7,7 @@ package SpaceCup.Forms;
 
 import SpaceCup.Business.Filter.Message;
 import SpaceCup.Business.Repositories.AlunoRepository;
+import SpaceCup.Business.Repositories.GrupoRepository;
 import SpaceCup.Business.Repositories.ProjetoRepository;
 import SpaceCup.Business.Repositories.TurmaRepository;
 import SpaceCup.Entity.Entities.Aluno;
@@ -16,6 +17,7 @@ import SpaceCup.Entity.Entities.Turma;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 /**
  *
@@ -29,14 +31,22 @@ public class AlunosForm extends javax.swing.JFrame {
     public AlunosForm() {
         initComponents();
         TurmaRepository turmaRepository = new TurmaRepository();
+        GrupoRepository grupoRepository = new GrupoRepository();
         
+        ArrayList<Turma> turmas = new ArrayList();        
+        ArrayList<Grupo> grupos = new ArrayList();        
         
-        ArrayList<Turma> turmas = new ArrayList(); 
-        //Aqui precisamos de um array com todos os projetos
+        grupos = grupoRepository.GetAll();
+        for (Grupo grupo : grupos) {
+            //txtgrupo.insert(grupo.getNomeGrupo(),grupo.getIdGrupo());
+            txtgrupo.addItem(grupo.getNomeGrupo());
+            
+        }
+        
         turmas = turmaRepository.GetAll();
         for (Turma turma : turmas) {
+            //txtturma.insert(turma.getNomeCurso(), turma.getIdTurma());
             txtturma.add(turma.getNomeCurso());
-        
         }
         
     }
@@ -70,7 +80,7 @@ public class AlunosForm extends javax.swing.JFrame {
         label6 = new java.awt.Label();
         txtcurso = new javax.swing.JTextField();
         label1 = new java.awt.Label();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        cbdatainicio = new com.toedter.calendar.JDateChooser();
 
         setResizable(false);
 
@@ -121,6 +131,11 @@ public class AlunosForm extends javax.swing.JFrame {
         btnexcluir.setText("Excluir");
 
         btnsair.setText("Sair");
+        btnsair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsairActionPerformed(evt);
+            }
+        });
 
         label6.setText("RM do Aluno:");
 
@@ -156,7 +171,8 @@ public class AlunosForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)))
                 .addGap(10, 10, 10))
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +210,7 @@ public class AlunosForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtturma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -209,9 +225,7 @@ public class AlunosForm extends javax.swing.JFrame {
                     .addComponent(btnalterar)
                     .addComponent(btnpesquisar)
                     .addComponent(btnexcluir)
-                    .addComponent(btnsair))
-                .addGap(0, 28, Short.MAX_VALUE))
-        );
+                    .addComponent(btnsair))               .addGap(0, 38, Short.MAX_VALUE))        );
 
         Curso.getAccessibleContext().setAccessibleName("RM");
 
@@ -244,7 +258,7 @@ public class AlunosForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnomeActionPerformed
 
     private void btncadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncadastrarActionPerformed
-
+        
         try {
             AlunoRepository alunorepo = new AlunoRepository();
             
@@ -252,27 +266,32 @@ public class AlunosForm extends javax.swing.JFrame {
             String RmAluno = txtrm.getText();
             String Turma = txtturma.getSelectedItem();
             String passText = new String(txtsenha.getPassword());
-            Date dataInicio = new Date();
+            Date dataInicio = cbdatainicio.getDate();
+            int idTurma = txtturma.getSelectedIndex();
             
             
-            Turma turma = new Turma(WIDTH, txtcurso.getText(), dataInicio);
+            Turma turma = new Turma(idTurma, Turma, dataInicio);
             turma.IsValid();
-
-            Grupo grupo = new Grupo(WIDTH, NomeAluno, WIDTH);
+            
+            Grupo grupo = new Grupo(txtgrupo.getSelectedIndex(), NomeAluno, WIDTH);
             grupo.IsValid();
-
+            
             Aluno aluno = new Aluno(0, RmAluno, NomeAluno, turma, grupo, passText, true);
             aluno.IsValid();
-
+            
             alunorepo.Insert(aluno);
             
         } catch (Exception e) {
             Message msg = new Message();
             msg.ErrorMessage(e.getMessage());
-        } 
+        }        
 
     }//GEN-LAST:event_btncadastrarActionPerformed
 
+    private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnsairActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -312,7 +331,7 @@ public class AlunosForm extends javax.swing.JFrame {
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnpesquisar;
     private javax.swing.JButton btnsair;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private com.toedter.calendar.JDateChooser cbdatainicio;
     private javax.swing.JInternalFrame jInternalFrame1;
     private java.awt.Label label1;
     private java.awt.Label label2;
