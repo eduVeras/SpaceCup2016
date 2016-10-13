@@ -57,7 +57,7 @@ public class AlunoRepository extends Message implements IAlunoRepository{
                 + "ID_Turma,"
                 + "ID_Grupo,"
                 + "Ativo_Aluno)"
-                + "VALUES(?,?,?,?)";
+                + "VALUES(?,?,?,?,?)";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
