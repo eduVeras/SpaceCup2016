@@ -101,7 +101,8 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
     @Override
     public void Update(Lancamento obj) {
         String sql = "UPDATE LANCAMENTO SET "
-                + "DataLancamento=?,"
+                + " Projeto_IdProjeto = ?,"
+                + " DataLancamento=?,"
                 + " Grupo=?,"
                 + " DistanciaLancamento=?,"
                 + " AnguloLancamento=?,"
@@ -113,15 +114,15 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
                 + " PicoAceleracao =?,"
                 + " TempoApogeuDescida=?,"
                 + " TempoEjecao=?,"
+                + " AltitudeEjecao=?,"
                 + " TaxaDescida=?,"
                 + " DuracaoVoo=?,"
-                + " Projeto_IdProjeto=?"
                 + " AceleracaoMedia = ?"
-                + "WHERE IdLancamento = ?";
+                + " WHERE IdLancamento = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
-
+        int x = 9999;
         try {
             obj.IsValid();
             ps = conexao.prepareStatement(sql);
@@ -150,6 +151,7 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
         } catch (Exception ex) {
             Logger.getLogger(LancamentoRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.err.println(x);
     }
 
     @Override
