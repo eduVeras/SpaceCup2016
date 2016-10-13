@@ -12,28 +12,21 @@ import SpaceCup.Entity.Entities.Grupo;
 import SpaceCup.Entity.Entities.Projeto;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Bruno
  */
 public class GrupoForm extends javax.swing.JFrame {
 
-    
+    private ProjetoRepository pRepository = new ProjetoRepository();
+
     public GrupoForm() {
         initComponents();
+        PreencherCombos();
         btneditar.setEnabled(false);
         btnexcluir.setEnabled(false);
+
         
-        this.cbprojeto.removeAllItems();
-        ProjetoRepository projetoRepository = new ProjetoRepository();
-        ArrayList<Projeto>cbprojeto = new ArrayList(); 
-        //Aqui precisamos de um array com todos os projetos
-        cbprojeto = projetoRepository.GetAll();
-        for (Projeto proj: cbprojeto) {
-            cbprojeto.add(proj.getIdProjeto(), proj);
-        
-        }
     }
 
     /**
@@ -167,99 +160,107 @@ public class GrupoForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbprojetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbprojetoActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_cbprojetoActionPerformed
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
         GrupoRepository gruporepository = new GrupoRepository();
-      Message msg = new Message();
-      String NomeGrupo = "";
-      int IdProjeto=0;
-      if(txtnomegrupo.getText().isEmpty()){
-          msg.ErrorMessage("Preencha um nome para o grupo");
-      }else{
-      NomeGrupo = txtnomegrupo.getText();
-      IdProjeto = cbprojeto.getSelectedIndex();
-      }
-      Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+        Message msg = new Message();
+        String NomeGrupo = "";
+        int IdProjeto = 0;
+        if (txtnomegrupo.getText().isEmpty()) {
+            msg.ErrorMessage("Preencha um nome para o grupo");
+        } else {
+            NomeGrupo = txtnomegrupo.getText();
+            IdProjeto = cbprojeto.getSelectedIndex();
+        }
+        Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
         gruporepository.Delete(grupo);
-      msg.SucessMessage("Grupo excluido com sucesso");
-      
-      limparcampos();
+        msg.SucessMessage("Grupo excluido com sucesso");
+
+        limparcampos();
     }//GEN-LAST:event_btnexcluirActionPerformed
 
+    private void PreencherCombos() {
+        
+        ArrayList<Projeto> Projetos = pRepository.GetAll();
+        cbprojeto.removeAllItems();
+        for (Projeto p : Projetos) {
+            String item = String.valueOf(p.getIdProjeto()) + " | " + p.getNomeProjeto();
+            cbprojeto.addItem(item);
+        }
+    }
+
+
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
-      GrupoRepository gruporepository = new GrupoRepository();
-      Message msg = new Message();
-      String NomeGrupo = "";
-      int IdProjeto=0;
-             
-      if(txtnomegrupo.getText().isEmpty()){
-          msg.ErrorMessage("Preencha um nome para o grupo");
-      }else{
-      NomeGrupo = txtnomegrupo.getText();
-      IdProjeto = cbprojeto.getSelectedIndex();
-      }
-      Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+        GrupoRepository gruporepository = new GrupoRepository();
+        Message msg = new Message();
+        String NomeGrupo = "";
+        int IdProjeto = 0;
+
+        if (txtnomegrupo.getText().isEmpty()) {
+            msg.ErrorMessage("Preencha um nome para o grupo");
+        } else {
+            NomeGrupo = txtnomegrupo.getText();
+            IdProjeto = cbprojeto.getSelectedIndex();
+        }
+        Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
         gruporepository.Insert(grupo);
-      msg.SucessMessage("Grupo inserido com sucesso");
-      
-      limparcampos();
+        msg.SucessMessage("Grupo inserido com sucesso");
+
+        limparcampos();
     }//GEN-LAST:event_btnsalvarActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
-      GrupoRepository gruporepository = new GrupoRepository();
-      Message msg = new Message();
-      String NomeGrupo = "";
-      int IdProjeto=0;
-             
-      if(txtnomegrupo.getText().isEmpty()){
-          msg.ErrorMessage("Preencha um nome para o grupo");
-      }else{
-      NomeGrupo = txtnomegrupo.getText();
-      IdProjeto = cbprojeto.getSelectedIndex();
-      }
-      Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+        GrupoRepository gruporepository = new GrupoRepository();
+        Message msg = new Message();
+        String NomeGrupo = "";
+        int IdProjeto = 0;
+
+        if (txtnomegrupo.getText().isEmpty()) {
+            msg.ErrorMessage("Preencha um nome para o grupo");
+        } else {
+            NomeGrupo = txtnomegrupo.getText();
+            IdProjeto = cbprojeto.getSelectedIndex();
+        }
+        Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
         gruporepository.Update(grupo);
-      msg.SucessMessage("Grupo alterado com sucesso");
-      limparcampos();
+        msg.SucessMessage("Grupo alterado com sucesso");
+        limparcampos();
     }//GEN-LAST:event_btneditarActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         GrupoRepository gruporepository = new GrupoRepository();
-      Message msg = new Message();
-      String NomeGrupo = "";
-      int IdProjeto=0;
-     
-     if(txtnomegrupo.getText().isEmpty()){
-          NomeGrupo = "";
-      }else{
-      NomeGrupo = txtnomegrupo.getText();
-      IdProjeto = cbprojeto.getSelectedIndex();
-      }
-      //Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
-      
-      Grupo retorno = gruporepository.GetGrupo(0, NomeGrupo, IdProjeto);
-      if(retorno == null){
-          msg.ErrorMessage("Grupo não encontrado");
-          limparcampos();
-      }
-      else{
-          btneditar.setEnabled(true);
-          btnexcluir.setEnabled(true);
-          txtnomegrupo.setText(retorno.getNomeGrupo());
-          cbprojeto.setSelectedIndex(retorno.getIdProjeto());
-      }
-      
+        Message msg = new Message();
+        String NomeGrupo = "";
+        int IdProjeto = 0;
+
+        if (txtnomegrupo.getText().isEmpty()) {
+            NomeGrupo = "";
+        } else {
+            NomeGrupo = txtnomegrupo.getText();
+            IdProjeto = cbprojeto.getSelectedIndex();
+        }
+        //Grupo grupo = new Grupo(0, NomeGrupo, IdProjeto);
+
+        Grupo retorno = gruporepository.GetGrupo(0, NomeGrupo, IdProjeto);
+        if (retorno == null) {
+            msg.ErrorMessage("Grupo não encontrado");
+            limparcampos();
+        } else {
+            btneditar.setEnabled(true);
+            btnexcluir.setEnabled(true);
+            txtnomegrupo.setText(retorno.getNomeGrupo());
+            cbprojeto.setSelectedIndex(retorno.getIdProjeto());
+        }
+
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
-         dispose();
+        dispose();
     }//GEN-LAST:event_btnsairActionPerformed
 
-    
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
