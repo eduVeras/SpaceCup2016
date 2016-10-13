@@ -440,9 +440,21 @@ public class LancamentoForm extends javax.swing.JFrame {
         txtvelocidadevento.setText("");
         cbdatalancamento.setDate(new java.util.Date());
         hfIdLancamento.setText("");
+        String[] tableColumnsName = {"IdLancamento", "AltitudeMaxima", "Grupo", "Projeto"};
+        DefaultTableModel aModel = (DefaultTableModel) tableLancamento.getModel();
+        aModel.setColumnIdentifiers(tableColumnsName);
+        tableLancamento.setModel(aModel);
+
     }
 
     private void PesquisarLancamento() {
+        
+        DefaultTableModel dm = (DefaultTableModel)tableLancamento.getModel();
+        int rowCount = dm.getRowCount();
+        //Remove rows one by one from the end of the table
+        for (int i = rowCount - 1; i >= 0; i--) {
+        dm.removeRow(i);
+}
         ArrayList<Lancamento> Lancamentos = repository.GetAll();
         try {
             if (Lancamentos == null) {
@@ -469,6 +481,7 @@ public class LancamentoForm extends javax.swing.JFrame {
 
     private void btnexcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexcluirActionPerformed
         ExcluirLancamento();
+        PesquisarLancamento();
     }//GEN-LAST:event_btnexcluirActionPerformed
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed

@@ -25,17 +25,9 @@ public class ProjetoForm extends javax.swing.JFrame {
      */
     public ProjetoForm() {
         initComponents();
-         btneditar.setEnabled(false);
-         btnexcluir.setEnabled(false);
-         this.cbgrupo.removeAllItems();
-        GrupoRepository gruporepository = new GrupoRepository();
-        ArrayList<Grupo>cbgrupo = new ArrayList(); 
-        //Aqui precisamos de um array com todos os projetos
-        cbgrupo = gruporepository.GetAll();
-        for (Grupo gr: cbgrupo) {
-            cbgrupo.add(gr.getIdGrupo(), gr);
-        
-        }
+        btneditar.setEnabled(false);
+        btnexcluir.setEnabled(false);
+        PreencherCombo();
     }
 
     /**
@@ -200,38 +192,58 @@ public class ProjetoForm extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void PreencherCombo() {
+        ArrayList<Grupo> Grupos = new GrupoRepository().GetAll();
+        cbgrupo.removeAllItems();
+        for (Grupo g : Grupos) {
+            String item = String.valueOf(g.getIdGrupo()) + " | " + g.getNomeGrupo();
+            cbgrupo.addItem(item);
+        }
+    }
     private void btnsalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvarActionPerformed
         ProjetoRepository projetorepository = new ProjetoRepository();
         Message msg = new Message();
-        
+
         String NomeProjeto = "";
-        Date DataInicio = null;
-        Date DataEntrega = null;
+        //java.util.Date utilDate = cbdatalancamento.getDate();
+        //java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        java.sql.Date DataInicio = null;
+        java.sql.Date DataEntrega = null;
+        java.util.Date utilDataInicio;
+        java.util.Date utilDataEntrega;
         String DetalhesProjeto = "";
         Grupo Grupo;
-        
-        if(txtnomeprojeto.getText().isEmpty()){
+
+        if (txtnomeprojeto.getText().isEmpty()) {
             msg.ErrorMessage("Digite um nome para o projeto");
-        }else{
-        NomeProjeto = txtnomeprojeto.getText();
+        } else {
+            NomeProjeto = txtnomeprojeto.getText();
         }
-        if(cbdataentrega.getDate()==null){
+        if (cbdataentrega.getDate() == null) {
             msg.ErrorMessage("selecione uma data de entrega");
-        }else{
-        DataEntrega = (Date) cbdataentrega.getDate();
+        } else {
+            utilDataEntrega = cbdataentrega.getDate();
+            DataEntrega = new java.sql.Date(utilDataEntrega.getTime());
         }
-        if(cbdatainicio.getDate()==null){
+        if (cbdatainicio.getDate() == null) {
             msg.ErrorMessage("selecione uma data de inicio");
-        }else{
-           DataInicio = (Date) cbdatainicio.getDate(); 
+        } else {
+            utilDataInicio = cbdatainicio.getDate();
+            DataInicio = new java.sql.Date(utilDataInicio.getTime());
         }
-        Grupo = new Grupo(cbgrupo.getSelectedIndex(), NomeProjeto, 0);
+        int IdGrupo = Integer.parseInt(String.valueOf(cbgrupo.getSelectedItem()).split("|")[0]);
+        Grupo = new GrupoRepository().GetById(IdGrupo);
         DetalhesProjeto = txtdetalhes.getText();
         Projeto projeto = new Projeto(0, NomeProjeto, DataInicio, DataEntrega, DetalhesProjeto, Grupo);
-        
-        projetorepository.Insert(projeto);
-        msg.SucessMessage("Projeto inserido com sucesso");
+        try {
+            projeto.IsValid();
+            projetorepository.Insert(projeto);
+            msg.SucessMessage("Projeto inserido com sucesso");
+        } catch (Exception e) {
+            Message m = new Message();
+            m.ErrorMessage(e.getMessage());
+        }
+
         limparCampos();
     }//GEN-LAST:event_btnsalvarActionPerformed
 
@@ -240,31 +252,29 @@ public class ProjetoForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsairActionPerformed
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
-      ProjetoRepository projetorepository = new ProjetoRepository();
+        ProjetoRepository projetorepository = new ProjetoRepository();
         Message msg = new Message();
-        
+
         String NomeProjeto = "";
         Date DataInicio = null;
         Date DataEntrega = null;
         String DetalhesProjeto = "";
         Grupo Grupo;
-        
-        if(txtnomeprojeto.getText().isEmpty()){
+
+        if (txtnomeprojeto.getText().isEmpty()) {
             msg.ErrorMessage("Digite um nome de projeto para pesquisar");
-        }else{
-        NomeProjeto = txtnomeprojeto.getText();
+        } else {
+            NomeProjeto = txtnomeprojeto.getText();
         }
-        
-       
+
         Grupo = new Grupo(cbgrupo.getSelectedIndex(), NomeProjeto, 0);
         Projeto projeto = new Projeto(0, NomeProjeto, null, null, "", null);
-        
+
         projetorepository.Insert(projeto);
         msg.SucessMessage("Projeto inserido com sucesso");
-        
+
     }//GEN-LAST:event_btnpesquisarActionPerformed
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -319,12 +329,12 @@ public class ProjetoForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limparCampos() {
-      txtdetalhes.setText("");
-      txtnomeprojeto.setText("");
-      cbdataentrega.setDate(null);
-      cbdatainicio.setDate(null);
-      cbgrupo.setSelectedIndex(0);
-      btneditar.setEnabled(false);
-      btnexcluir.setEnabled(false);
+        txtdetalhes.setText("");
+        txtnomeprojeto.setText("");
+        cbdataentrega.setDate(null);
+        cbdatainicio.setDate(null);
+        cbgrupo.setSelectedIndex(0);
+        btneditar.setEnabled(false);
+        btnexcluir.setEnabled(false);
     }
 }
