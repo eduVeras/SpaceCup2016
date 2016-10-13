@@ -15,11 +15,12 @@ import javax.swing.JOptionPane;
  * @author Shiftinc-Dev02
  */
 public class Connection {
+    
 
     private static java.sql.Connection conexao;
-    private static String url = "jdbc:oracle:thin:@nomeDoHost:númeroD\naPorta:serviço";
-    private static String usuario = "root";
-    private static String senha = "root";
+    private static String url = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:orcl";
+    private static String usuario = "OPS$RM72197";
+    private static String senha = "080396";
 
     public static java.sql.Connection getConnection() {
 

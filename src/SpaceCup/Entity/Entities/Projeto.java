@@ -60,18 +60,18 @@ public class Projeto {
         this.Grupo = Grupo;
     }
     
-    public void IsValid(){
+    public void IsValid() throws Exception{
       Message error =  new Message();
       
-        if (this.NomeProjeto.equalsIgnoreCase("")) {
-            error.ErrorMessage("Nome Projeto é obrigatorio");
+        if (this.NomeProjeto.isEmpty()) {
+            throw new Exception("Projeto - Nome Projeto é obrigatorio");
         }
         
         if(this.DataEntrega.before(DataInicio))
-            error.ErrorMessage("Projeto - Data de entrega invalida.");
+            throw new Exception("Projeto - Data de entrega invalida.");
         
         if(this.DetalhesProjeto.isEmpty())
-            error.ErrorMessage("Projeto - Não foi informado os detalhes do projeto");
+            throw new Exception("Projeto - Não foi informado os detalhes do projeto");
         
     }
 }
