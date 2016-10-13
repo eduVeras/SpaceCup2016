@@ -10,10 +10,7 @@ import SpaceCup.Business.Repositories.AlunoRepository;
 import SpaceCup.Entity.Entities.Aluno;
 import SpaceCup.Entity.Entities.Grupo;
 import SpaceCup.Entity.Entities.Turma;
-import java.text.ParseException;
 import java.util.Date;
-import javax.swing.JOptionPane;
-import sun.security.util.Password;
 
 /**
  *
