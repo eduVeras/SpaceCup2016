@@ -80,7 +80,7 @@ public class AlunosForm extends javax.swing.JFrame {
         label6 = new java.awt.Label();
         txtcurso = new javax.swing.JTextField();
         label1 = new java.awt.Label();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        cbdatainicio = new com.toedter.calendar.JDateChooser();
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jInternalFrame1, org.jdesktop.beansbinding.ELProperty.create("${closable}"), this, org.jdesktop.beansbinding.BeanProperty.create("defaultCloseOperation"));
         bindingGroup.addBinding(binding);
@@ -169,7 +169,8 @@ public class AlunosForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)))
                 .addGap(10, 10, 10))
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -207,7 +208,7 @@ public class AlunosForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtturma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbdatainicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -223,7 +224,7 @@ public class AlunosForm extends javax.swing.JFrame {
                     .addComponent(btnpesquisar)
                     .addComponent(btnexcluir)
                     .addComponent(btnsair))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
         Curso.getAccessibleContext().setAccessibleName("RM");
@@ -265,7 +266,7 @@ public class AlunosForm extends javax.swing.JFrame {
             String RmAluno = txtrm.getText();
             String Turma = txtturma.getSelectedItem();
             String passText = new String(txtsenha.getPassword());
-            Date dataInicio = new Date();
+            Date dataInicio = cbdatainicio.getDate();
             int idTurma = txtturma.getSelectedIndex();
             
             
@@ -330,7 +331,7 @@ public class AlunosForm extends javax.swing.JFrame {
     private javax.swing.JButton btnexcluir;
     private javax.swing.JButton btnpesquisar;
     private javax.swing.JButton btnsair;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private com.toedter.calendar.JDateChooser cbdatainicio;
     private javax.swing.JInternalFrame jInternalFrame1;
     private java.awt.Label label1;
     private java.awt.Label label2;
