@@ -134,8 +134,8 @@ public class LoginForm extends javax.swing.JFrame {
                     throw new Exception("Usuario ou senha incorretos");
                 } else {
                     this.hide();
-                    AlunosForm alunoform = new AlunosForm();
-                    alunoform.show();
+                    MainForm mainform = new MainForm();
+                    mainform.show();
                 }
             }
         } catch (Exception e) {

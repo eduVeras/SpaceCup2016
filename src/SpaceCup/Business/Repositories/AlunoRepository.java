@@ -19,7 +19,7 @@ public class AlunoRepository extends Message implements IAlunoRepository{
 
         String sql = "SELECT * "
                 + "FROM ALUNO "
-                + "WHERE RM = ? "
+                + "WHERE RMALUNO = ? "
                 + "AND PASSWORD = ?"
                 + "AND ATIVO = 1 ";
         conexao = Connection.getConnection();
