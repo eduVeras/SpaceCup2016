@@ -20,7 +20,7 @@ public class Lancamento {
     private Double DistanciaLancamento;
     private Double Angulolancamento;
     private Double VelocidadeVento;
-    private Double PesoFoquete;
+    private Double PesoFoguete;
     private Double AltitudeMaxima;
     private Double VelocidadeMaxima;
     private Double TempoPropulsao;
@@ -38,14 +38,14 @@ public class Lancamento {
     public Lancamento() {
     }
 
-    public Lancamento(int IdLancamento, Date DataLancamento, Grupo Grupo, Double DistanciaLancamento, Double Angulolancamento, Double VelocidadeVento, Double PesoFoquete, Double AltitudeMaxima, Double VelocidadeMaxima, Double TempoPropulsao, Double PicoAceleracao, Double AceleracaoMedia, Double TempoApogeuDescida, Double TempoEjecao, Double AltitudeEjecao, Double TaxaDescida, Double Duracaovoo, Projeto Projeto) {
+    public Lancamento(int IdLancamento, Date DataLancamento, Grupo Grupo, Double DistanciaLancamento, Double Angulolancamento, Double VelocidadeVento, Double PesoFoguete, Double AltitudeMaxima, Double VelocidadeMaxima, Double TempoPropulsao, Double PicoAceleracao, Double AceleracaoMedia, Double TempoApogeuDescida, Double TempoEjecao, Double AltitudeEjecao, Double TaxaDescida, Double Duracaovoo, Projeto Projeto) {
         this.IdLancamento = IdLancamento;
         this.DataLancamento = DataLancamento;
         this.Grupo = Grupo;
         this.DistanciaLancamento = DistanciaLancamento;
         this.Angulolancamento = Angulolancamento;
         this.VelocidadeVento = VelocidadeVento;
-        this.PesoFoquete = PesoFoquete;
+        this.PesoFoguete = PesoFoguete;
         this.AltitudeMaxima = AltitudeMaxima;
         this.VelocidadeMaxima = VelocidadeMaxima;
         this.TempoPropulsao = TempoPropulsao;
@@ -107,12 +107,12 @@ public class Lancamento {
         this.VelocidadeVento = VelocidadeVento;
     }
 
-    public Double getPesoFoquete() {
-        return PesoFoquete;
+    public Double getPesoFoguete() {
+        return PesoFoguete;
     }
 
-    public void setPesoFoquete(Double PesoFoquete) {
-        this.PesoFoquete = PesoFoquete;
+    public void setPesoFoguete(Double PesoFoguete) {
+        this.PesoFoguete = PesoFoguete;
     }
 
     public Double getAltitudeMaxima() {
@@ -217,7 +217,7 @@ public class Lancamento {
         if (this.VelocidadeVento.isNaN()) {
             throw new Exception("Lançamento - Velocidade do lançamento inválida.");
         }
-        if (this.PesoFoquete.isNaN()) {
+        if (this.PesoFoguete.isNaN()) {
             throw new Exception("Lançamento - Peso do Foquete inválida.");
         }
         if (this.TempoPropulsao.isNaN()) {
