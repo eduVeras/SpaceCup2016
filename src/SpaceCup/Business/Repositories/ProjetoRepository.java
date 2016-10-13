@@ -44,8 +44,8 @@ public class ProjetoRepository extends Message implements IProjetoRepository {
     public Projeto GetById(int id) {
         Message msg = new Message();
         String sql = "SELECT * "
-                + "FROM PROJETO LEFT JOIN GRUPO "
-                + "WHERE IdProjeto = ?";
+                + " FROM PROJETO "
+                + " WHERE IdProjeto = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -59,15 +59,13 @@ public class ProjetoRepository extends Message implements IProjetoRepository {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                int IdProjeto = rs.getInt(1);
-                String NomeProjeto = rs.getString(2);
-                Date DataInicio = rs.getDate(3);
-                Date DataEntrega = rs.getDate(4);
-                String DetalhesProjeto = rs.getString(5);
-                int IdGrupo = rs.getInt(6);
-                String NomeGrupo = rs.getString(7);
-                boolean Ativo = rs.getBoolean(8);
-                Grupo = new Grupo(IdGrupo, NomeGrupo, IdProjeto);
+                int IdProjeto = rs.getInt("IdProjeto");
+                String NomeProjeto = rs.getString("NomeProjeto");
+                Date DataInicio = rs.getDate("DataInicio");
+                Date DataEntrega = rs.getDate("DataEntrega");
+                String DetalhesProjeto = rs.getString("DetalhesProjeto");
+                int IdGrupo = rs.getInt("IdGrupo");
+                Grupo = new GrupoRepository().GetById(IdGrupo);
                 retorno = new Projeto(IdProjeto, NomeProjeto, DataInicio, DataEntrega, DetalhesProjeto, Grupo);
             }
 
