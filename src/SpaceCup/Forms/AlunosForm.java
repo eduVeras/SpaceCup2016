@@ -109,6 +109,8 @@ public class AlunosForm extends javax.swing.JFrame {
 
         label3.setText("Grupo:");
 
+        txtturma.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         label4.setText("Turma:");
 
         label5.setText("Senha:");
@@ -224,7 +226,7 @@ public class AlunosForm extends javax.swing.JFrame {
                     .addComponent(btnpesquisar)
                     .addComponent(btnexcluir)
                     .addComponent(btnsair))
-                .addGap(0, 38, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
         );
 
         Curso.getAccessibleContext().setAccessibleName("RM");
