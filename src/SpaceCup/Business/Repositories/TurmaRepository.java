@@ -17,7 +17,7 @@ public class TurmaRepository extends Message implements ITurmaRepository {
 
     @Override
     public void Insert(Turma obj) {
-        String sql = "INSERT INTO Turma (NomeCurso,DataIncio)"
+        String sql = "INSERT INTO Turma (NomeCurso,DataInicio)"
                 + "VALUES(?,?)";
         conexao = Connection.getConnection();
         ResultSet rs = null;
@@ -26,12 +26,41 @@ public class TurmaRepository extends Message implements ITurmaRepository {
         try {
             ps = conexao.prepareStatement(sql);
             ps.setString(1, obj.getNomeCurso());
-            ps.setDate(2, (java.sql.Date) obj.getDataIncio());
+            ps.setDate(2, (java.sql.Date) obj.getDataInicio());
             ps.execute();
 
         } catch (SQLException e) {
             ErrorMessage("Erro ao Inserir turma.\n" + e);
         }
+    }
+
+    public Turma GetByName(Turma turma) {
+        String sql = "SELECT * "
+                + "FROM TURMA "
+                + "WHERE NomeCurso = ?";
+        conexao = Connection.getConnection();
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        Turma retorno = new Turma();
+
+        try {
+
+            ps = conexao.prepareStatement(sql);
+            ps.setString(1, turma.getNomeCurso());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int IdTurma = rs.getInt(1);
+                String NomeCurso = rs.getString(2);
+                Date DataIncio = rs.getDate(3);
+
+               retorno = new Turma(IdTurma, NomeCurso, DataIncio);
+            }
+
+        } catch (SQLException e) {
+            ErrorMessage("Erro ao Buscar alunos.\n" + e);
+        }
+        return retorno;
     }
 
     @Override
@@ -76,7 +105,7 @@ public class TurmaRepository extends Message implements ITurmaRepository {
         Aluno retorno = new Aluno();
 
         try {
-            java.sql.Date date = (java.sql.Date) obj.getDataIncio();
+            java.sql.Date date = (java.sql.Date) obj.getDataInicio();
             ps = conexao.prepareStatement(sql);
             ps.setString(1, obj.getNomeCurso());
             ps.setDate(2, date);
@@ -133,4 +162,5 @@ public class TurmaRepository extends Message implements ITurmaRepository {
         }
         return retorno;
     }
+
 }
