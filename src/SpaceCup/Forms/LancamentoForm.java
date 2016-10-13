@@ -31,7 +31,8 @@ public class LancamentoForm extends javax.swing.JFrame {
     public LancamentoForm() {
         initComponents();
         PreencherCombos();
-        hfIdLancamento.setVisible(false);
+        LimparCampos();
+        PesquisarLancamento();
     }
 
     @SuppressWarnings("unchecked")
@@ -407,12 +408,12 @@ public class LancamentoForm extends javax.swing.JFrame {
                 throw new Exception("Lançamento Salvo com sucesso!");
             } else {
                 repository.Update(lancamento);
-              LimparCampos();
+                LimparCampos();
                 throw new Exception("Lançamento atualizado com sucesso!");
             }
 
         } catch (Exception e) {
-            
+
             Message m = new Message();
             m.ErrorMessage(e.getMessage());
         }
@@ -421,24 +422,26 @@ public class LancamentoForm extends javax.swing.JFrame {
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
         PesquisarLancamento();
     }//GEN-LAST:event_btnpesquisarActionPerformed
-    private void LimparCampos(){
-    txtAceleracaoMedia.setText("");
-    txtAltitudeEjecao.setText("");
-    txtPicoAceleracao.setText("");
-    txtaltitudemaxima.setText("");
-    txtangulolancamento.setText("");
-    txtapogeudescida.setText("");
-    txtdistancialancamento.setText("");
-    txtduracaovoo.setText("");
-    txtpesofoquete.setText("");
-    txttaxadescida.setText("");
-    txttempoejecao.setText("");
-    txttempopropulsao.setText("");
-    txtvelocidademaxima.setText("");
-    txtvelocidadevento.setText("");
-    cbdatalancamento.cleanup();
-    hfIdLancamento.setText("");
+    private void LimparCampos() {
+        hfIdLancamento.setVisible(false);
+        txtAceleracaoMedia.setText("");
+        txtAltitudeEjecao.setText("");
+        txtPicoAceleracao.setText("");
+        txtaltitudemaxima.setText("");
+        txtangulolancamento.setText("");
+        txtapogeudescida.setText("");
+        txtdistancialancamento.setText("");
+        txtduracaovoo.setText("");
+        txtpesofoquete.setText("");
+        txttaxadescida.setText("");
+        txttempoejecao.setText("");
+        txttempopropulsao.setText("");
+        txtvelocidademaxima.setText("");
+        txtvelocidadevento.setText("");
+        cbdatalancamento.setDate(new java.util.Date());
+        hfIdLancamento.setText("");
     }
+
     private void PesquisarLancamento() {
         ArrayList<Lancamento> Lancamentos = repository.GetAll();
         try {

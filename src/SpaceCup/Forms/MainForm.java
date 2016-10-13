@@ -52,7 +52,6 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(760, 650));
-        setPreferredSize(new java.awt.Dimension(760, 650));
         setResizable(false);
 
         jInternalFrame2.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -156,7 +155,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addGroup(jInternalFrame2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(408, Short.MAX_VALUE))
         );
 
         jInternalFrame2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnalunos, btngrupos, btnlancamentos, btnprojetos, btnsair, btnturmas});
@@ -178,28 +177,33 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnalunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnalunosActionPerformed
-      AlunosForm form = new AlunosForm();
-      form.show();
+        AlunosForm form = new AlunosForm();
+        form.setDefaultCloseOperation(form.DO_NOTHING_ON_CLOSE);
+        form.show();
     }//GEN-LAST:event_btnalunosActionPerformed
 
     private void btngruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btngruposActionPerformed
-       GrupoForm form = new GrupoForm();
+        GrupoForm form = new GrupoForm();
+        form.setDefaultCloseOperation(form.DO_NOTHING_ON_CLOSE);
         form.show();
     }//GEN-LAST:event_btngruposActionPerformed
 
     private void btnlancamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlancamentosActionPerformed
-         LancamentoForm form = new LancamentoForm();
-         form.show();
+        LancamentoForm form = new LancamentoForm();
+        form.setDefaultCloseOperation(form.DO_NOTHING_ON_CLOSE);
+        form.show();
     }//GEN-LAST:event_btnlancamentosActionPerformed
 
     private void btnprojetosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprojetosActionPerformed
         ProjetoForm form = new ProjetoForm();
-         form.show();
+        form.setDefaultCloseOperation(form.DO_NOTHING_ON_CLOSE);
+        form.show();
     }//GEN-LAST:event_btnprojetosActionPerformed
 
     private void btnturmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnturmasActionPerformed
         TurmaForm form = new TurmaForm();
-         form.show();
+        form.setDefaultCloseOperation(form.DO_NOTHING_ON_CLOSE);
+        form.show();
     }//GEN-LAST:event_btnturmasActionPerformed
 
     private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
