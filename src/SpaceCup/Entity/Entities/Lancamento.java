@@ -62,7 +62,7 @@ public class Lancamento {
     }
 
     public int getIdLancamento() {
-        return IdLancamento;
+        return IdLancamento ;
     }
 
     public void setIdLancamento(int IdLancamento) {
@@ -86,7 +86,7 @@ public class Lancamento {
     }
 
     public Double getDistanciaLancamento() {
-        return DistanciaLancamento;
+        return DistanciaLancamento == null ? 0 : DistanciaLancamento;
     }
 
     public void setDistanciaLancamento(Double DistanciaLancamento) {
@@ -94,7 +94,7 @@ public class Lancamento {
     }
 
     public Double getAngulolancamento() {
-        return Angulolancamento;
+        return Angulolancamento == null ? 0 : Angulolancamento;
     }
 
     public void setAngulolancamento(Double Angulolancamento) {
@@ -102,7 +102,7 @@ public class Lancamento {
     }
 
     public Double getVelocidadeVento() {
-        return VelocidadeVento;
+        return VelocidadeVento == null ? 0 : VelocidadeVento;
     }
 
     public void setVelocidadeVento(Double VelocidadeVento) {
@@ -110,7 +110,7 @@ public class Lancamento {
     }
 
     public Double getPesoFoguete() {
-        return PesoFoguete;
+        return PesoFoguete  == null ? 0 : PesoFoguete;
     }
 
     public void setPesoFoguete(Double PesoFoguete) {
@@ -118,7 +118,7 @@ public class Lancamento {
     }
 
     public Double getAltitudeMaxima() {
-        return AltitudeMaxima;
+        return AltitudeMaxima == null ? 0 : AltitudeMaxima;
     }
 
     public void setAltitudeMaxima(Double AltitudeMaxima) {
@@ -126,7 +126,7 @@ public class Lancamento {
     }
 
     public Double getVelocidadeMaxima() {
-        return VelocidadeMaxima;
+        return VelocidadeMaxima == null ? 0 : VelocidadeMaxima;
     }
 
     public void setVelocidadeMaxima(Double VelocidadeMaxima) {
@@ -134,7 +134,7 @@ public class Lancamento {
     }
 
     public Double getTempoPropulsao() {
-        return TempoPropulsao;
+        return TempoPropulsao == null ? 0 : TempoPropulsao;
     }
 
     public void setTempoPropulsao(Double TempoPropulsao) {
@@ -142,7 +142,7 @@ public class Lancamento {
     }
 
     public Double getPicoAceleracao() {
-        return PicoAceleracao;
+        return PicoAceleracao == null ? 0 : PicoAceleracao;
     }
 
     public void setPicoAceleracao(Double PicoAceleracao) {
@@ -150,7 +150,7 @@ public class Lancamento {
     }
 
     public Double getAceleracaoMedia() {
-        return AceleracaoMedia;
+        return AceleracaoMedia == null ? 0 : AceleracaoMedia;
     }
 
     public void setAceleracaoMedia(Double AceleracaoMedia) {
@@ -158,7 +158,7 @@ public class Lancamento {
     }
 
     public Double getTempoApogeuDescida() {
-        return TempoApogeuDescida;
+        return TempoApogeuDescida == null ? 0 : TempoApogeuDescida;
     }
 
     public void setTempoApogeuDescida(Double TempoApogeuDescida) {
@@ -166,7 +166,7 @@ public class Lancamento {
     }
 
     public Double getTempoEjecao() {
-        return TempoEjecao;
+        return TempoEjecao == null ? 0 : TempoEjecao;
     }
 
     public void setTempoEjecao(Double TempoEjecao) {
@@ -174,7 +174,7 @@ public class Lancamento {
     }
 
     public Double getAltitudeEjecao() {
-        return AltitudeEjecao;
+        return AltitudeEjecao == null ? 0 : AltitudeEjecao;
     }
 
     public void setAltitudeEjecao(Double AltitudeEjecao) {
@@ -182,7 +182,7 @@ public class Lancamento {
     }
 
     public Double getTaxaDescida() {
-        return TaxaDescida;
+        return TaxaDescida  == null ? 0 : TaxaDescida;
     }
 
     public void setTaxaDescida(Double TaxaDescida) {
@@ -190,7 +190,7 @@ public class Lancamento {
     }
 
     public Double getDuracaovoo() {
-        return Duracaovoo;
+        return Duracaovoo == null ? 0 : Duracaovoo;
     }
 
     public void setDuracaovoo(Double Duracaovoo) {

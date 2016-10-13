@@ -21,8 +21,8 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
         String sql = "INSERT INTO LANCAMENTO (IdLancamento,DataLancamento,Grupo,DistanciaLancamento,"
                 + "AnguloLancamento,VelocidadeVento,PesoFoguete,AltitudeMaxima ,VelocidadeMaxima ,"
                 + "TempoPropulsao ,PicoAceleracao ,TempoApogeuDescida,TempoEjecao,AltitudeEjecao,"
-                + "TaxaDescida,DuracaoVoo,Projeto_IdProjeto)"
-                + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "TaxaDescida,DuracaoVoo,Projeto_IdProjeto,AceleracaoMedia)"
+                + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
@@ -31,7 +31,7 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
 
             ps = conexao.prepareStatement(sql);
             ps.setInt(1, obj.getIdLancamento());
-            ps.setDate(2, (Date) obj.getDataLancamento());
+            ps.setDate(2, obj.getDataLancamento());
             ps.setInt(3, obj.getGrupo().getIdGrupo());
             ps.setDouble(4, obj.getDistanciaLancamento());
             ps.setDouble(5, obj.getAngulolancamento());
@@ -47,6 +47,7 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
             ps.setDouble(15, obj.getTaxaDescida());
             ps.setDouble(16, obj.getDuracaovoo());
             ps.setInt(17, obj.getProjeto().getIdProjeto());
+            ps.setDouble(18, obj.getAceleracaoMedia());
             ps.execute();
 
         } catch (SQLException e) {
@@ -72,7 +73,7 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
             while (rs.next()) {
                 retorno.setIdLancamento(rs.getInt("IdLancamento"));
                 retorno.setDataLancamento(rs.getDate("DataLancamento"));
-                retorno.setGrupo(new Grupo(rs.getInt("Grupo")));
+                retorno.setGrupo(new GrupoRepository().GetById(rs.getInt("Grupo")));
                 retorno.setDistanciaLancamento(rs.getDouble("DistanciaLancamento"));
                 retorno.setAngulolancamento(rs.getDouble("AnguloLancamento"));
                 retorno.setVelocidadeVento(rs.getDouble("VelocidadeVento"));
@@ -86,7 +87,8 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
                 retorno.setAltitudeEjecao(rs.getDouble("AltitudeEjecao"));
                 retorno.setTaxaDescida(rs.getDouble("TaxaDescida"));
                 retorno.setDuracaovoo(rs.getDouble("DuracaoVoo"));
-                retorno.setProjeto(new Projeto(rs.getInt("Projeto_IdProjeto")));
+                retorno.setAceleracaoMedia(rs.getDouble("AceleracaoMedia"));
+                retorno.setProjeto(new ProjetoRepository().GetById(rs.getInt("Projeto_IdProjeto")));
 
             }
 
@@ -100,20 +102,21 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
     public void Update(Lancamento obj) {
         String sql = "UPDATE LANCAMENTO SET "
                 + "DataLancamento=?,"
-                + "Grupo=?,"
-                + "DistanciaLancamento=?,"
-                + "AnguloLancamento=?,"
-                + "VelocidadeVento=?,"
-                + "PesoFoguete=?,"
-                + "AltitudeMaxima =?,"
-                + "VelocidadeMaxima =?,"
-                + "TempoPropulsao =?,"
-                + "PicoAceleracao =?,"
-                + "TempoApogeuDescida=?,"
-                + "TempoEjecao=?,"
-                + "TaxaDescida=?,"
-                + "DuracaoVoo=?,"
-                + "Projeto_IdProjeto=?;"
+                + " Grupo=?,"
+                + " DistanciaLancamento=?,"
+                + " AnguloLancamento=?,"
+                + " VelocidadeVento=?,"
+                + " PesoFoguete=?,"
+                + " AltitudeMaxima =?,"
+                + " VelocidadeMaxima =?,"
+                + " TempoPropulsao =?,"
+                + " PicoAceleracao =?,"
+                + " TempoApogeuDescida=?,"
+                + " TempoEjecao=?,"
+                + " TaxaDescida=?,"
+                + " DuracaoVoo=?,"
+                + " Projeto_IdProjeto=?"
+                + " AceleracaoMedia = ?"
                 + "WHERE IdLancamento = ?";
         conexao = Connection.getConnection();
         ResultSet rs = null;
@@ -138,7 +141,8 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
             ps.setDouble(14, obj.getAltitudeEjecao());
             ps.setDouble(15, obj.getTaxaDescida());
             ps.setDouble(16, obj.getDuracaovoo());
-            ps.setInt(17, obj.getIdLancamento());
+            ps.setDouble(17, obj.getAceleracaoMedia());
+            ps.setInt(18, obj.getIdLancamento());
             ps.execute();
 
         } catch (SQLException e) {
@@ -169,18 +173,17 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
 
     @Override
     public ArrayList<Lancamento> GetAll() {
-        String sql = "SELECT * "
-                + "FROM LANCAMENTO ;";
+        String sql = "SELECT * FROM LANCAMENTO";
         conexao = Connection.getConnection();
         ResultSet rs = null;
         PreparedStatement ps = null;
-        ArrayList<Lancamento> lc = new ArrayList<Lancamento>();
+        ArrayList<Lancamento> lc = null;
         Lancamento retorno;
         try {
 
             ps = conexao.prepareStatement(sql);
             rs = ps.executeQuery();
-
+            lc =  new ArrayList<Lancamento>();
             while (rs.next()) {
                 retorno = new Lancamento();
                 retorno.setIdLancamento(rs.getInt("IdLancamento"));
@@ -207,24 +210,5 @@ public class LancamentoRepository extends Message implements ILancamentoReposito
             ErrorMessage("Erro ao Buscar grupo.\n" + e);
         }
         return lc;
-    }
-     public ResultSet GetTable() {
-        String sql = "SELECT * "
-                + "FROM LANCAMENTO ;";
-        conexao = Connection.getConnection();
-        ResultSet rs = null;
-        PreparedStatement ps = null;
-        ArrayList<Lancamento> lc = new ArrayList<Lancamento>();
-        Lancamento retorno;
-        try {
-
-            ps = conexao.prepareStatement(sql);
-            rs = ps.executeQuery();
-         
-
-        } catch (SQLException e) {
-            ErrorMessage("Erro ao Buscar grupo.\n" + e);
-        }
-        return rs;
-    }
+    }     
 }

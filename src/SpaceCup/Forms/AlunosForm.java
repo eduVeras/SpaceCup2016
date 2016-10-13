@@ -30,6 +30,7 @@ public class AlunosForm extends javax.swing.JFrame {
      */
     public AlunosForm() {
         initComponents();
+        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
         TurmaRepository turmaRepository = new TurmaRepository();
         GrupoRepository grupoRepository = new GrupoRepository();
         
@@ -293,7 +294,7 @@ public class AlunosForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btncadastrarActionPerformed
 
     private void btnsairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsairActionPerformed
-        System.exit(0);
+       this.dispose();
     }//GEN-LAST:event_btnsairActionPerformed
     
     public static void main(String args[]) {
